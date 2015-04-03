@@ -1,0 +1,13 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/testBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STUM" />
+
+</RelativeLayout>
+<!-- From: file:/C:/Users/Administrator/Desktop/Blog1/app/src/main/res/layout/activity_page1.xml -->
