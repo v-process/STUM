@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\libs\ParseFacebookUtilsV4-1.9.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f78e5603a5ecac14eaa34a763c9165444a681193">
+        <dex dex="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\build\intermediates\pre-dexed\debug\ParseFacebookUtilsV4-1.9.1-96d5d1b6d51852abbc2a772e81be3683a3231ca8.jar" />
+    </item>
+    <item
+        jar="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\libs\Parse-1.9.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1b065010f3c9d441ede9078aca8eabcd1c81e647">
+        <dex dex="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\build\intermediates\pre-dexed\debug\Parse-1.9.1-26201615d48afb867a8fc2ef605f12f92d9099e8.jar" />
+    </item>
+    <item
+        jar="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\libs\ParseFacebookUtilsV3-1.9.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fef87266c7fcfc92f1536e8d0e1150b465d388d1">
+        <dex dex="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\build\intermediates\pre-dexed\debug\ParseFacebookUtilsV3-1.9.1-479b1a4e3e0a54f6cbda2ba0705cf8f424b3f8a2.jar" />
+    </item>
+    <item
+        jar="C:\Users\LG\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-12ff4430390841782f0c591d23e167935b619e3b.jar" />
+    </item>
+    <item
+        jar="C:\Users\LG\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_Base\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-b75ba0f12a7ca7dfcc14f50067a3659e2aa354f4.jar" />
+    </item>
+    <item
+        jar="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\libs\ParseCrashReporting-1.9.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2bfbcce5ae61bdd10676df8e89710693c1256024">
+        <dex dex="C:\Users\LG\AndroidStudioProjects\STUM_Bluetooth_DB\app\build\intermediates\pre-dexed\debug\ParseCrashReporting-1.9.1-e7dc54b5e382b999926fa351bdc6131a5660a70c.jar" />
+    </item>
+
+</items>
