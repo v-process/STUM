@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.parse.ParseUser;
+
 //네비게이션 프레그먼트2
 public class NavActivity2 extends NavBaseActivity implements AdapterView.OnItemClickListener {
     private String[] navMenuTitles;
@@ -18,7 +20,7 @@ public class NavActivity2 extends NavBaseActivity implements AdapterView.OnItemC
 
     private String data[] =
 
-            { "Android", "iPhone", "BlackBerry"};
+            { "블루투스 연결", "로그아웃", "개발자 소개"};
 
     ListView list;
     EditText edit;
@@ -28,13 +30,15 @@ public class NavActivity2 extends NavBaseActivity implements AdapterView.OnItemC
     //리스트 아이템 클릭 포지션 0과 1에서 선택에 따른 엑엑티비티구현.
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         if (position == 0) {
-            Intent intent0 = new Intent(NavActivity2.this, NavActivity3.class);
+            Intent intent0 = new Intent(NavActivity2.this, BluetoothActivity.class);
             startActivity(intent0);
         }
 
         else if (position == 1) {
-            Intent intent1 = new Intent(NavActivity2.this, NavActivity2.class);
+            ParseUser.logOut();
+            Intent intent1 = new Intent(NavActivity2.this, LoginSignupActivity.class);
             startActivity(intent1);
+            finish();
         }
     }
 
@@ -57,6 +61,12 @@ public class NavActivity2 extends NavBaseActivity implements AdapterView.OnItemC
         list.setAdapter(array);
         list.setOnItemClickListener(this);
         //리스너 등록끝.
+
+        // Retrieve current user from Parse.com
+        ParseUser currentUser = ParseUser.getCurrentUser();
+
+        // Convert currentUser into String
+        String struser = currentUser.getUsername().toString();
     }
 
 
