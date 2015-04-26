@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.administrator.slidertest.BLUETOOTH.BluetoothActivity;
 import com.parse.ParseUser;
 
 //네비게이션 프레그먼트2
