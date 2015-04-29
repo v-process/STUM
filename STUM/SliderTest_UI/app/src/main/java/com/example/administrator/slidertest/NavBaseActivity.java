@@ -1,6 +1,7 @@
 package com.example.administrator.slidertest;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -20,15 +21,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
@@ -54,24 +58,83 @@ public class NavBaseActivity extends ActionBarActivity {
 
 
     final int REQ_CODE_SELECT_IMAGE=100;
-    private ParseFile ImageFile;
+    public ParseFile ImageFile;
+    ParseObject ImageValues;//파스 오브젝트 생성
+    ImageView image;
+    ParseFile fileObject;
+    Bitmap bmp;
+    Bitmap image_bitmap;
+    Intent intent = new Intent(Intent.ACTION_PICK);
+    private ProgressDialog progressDialog;
+    ParseUser pUser= ParseUser.getCurrentUser();
+    String objectId= "O4e8Vn2FCK";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.drawer);
+
         // if (savedInstanceState == null) {
         // // on first time display view for first nav item
         // // displayView(0);
         // }
+       // progressDialog = ProgressDialog.show(this, "", "Downloading Image...", true);
+
+        // Locate the class table named "ImageUpload" in Parse.com
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("profile_pic");
+        // Locate the objectId from the class
+
+        query.getInBackground(objectId, new GetCallback<ParseObject>() {
+
+                    public void done(ParseObject object,
+                                     ParseException e) {
+                        // TODO Auto-generated method stub
+
+                        // Locate the column named "ImageName" and set
+                        // the string
+                        ParseFile fileObject = (ParseFile) object.get("profileimage");
+                      //  ParseFile fileUser = (ParseFile) object.get("User");
+                        //ParseFile fileName = (ParseFile) object.get("Name");
 
 
-    }
+                        fileObject.getDataInBackground(new GetDataCallback() {
+
+                                     public void done(byte[] data, ParseException e) {
+                                         if (e == null) {
+                                        Log.d("test", "We've got data in data.");
+                                        // Decode the Byte[] into
+                                        // Bitmap
+                                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                                        // Get the ImageView from
+                                        // main.xml
+                                        ImageButton image = (ImageButton) findViewById(R.id.profileimage);
+
+                                        // Set the Bitmap into the
+                                        // ImageView
+                                        image.setImageBitmap(bmp);
+
+                                        // Close progress dialog
+                                        //progressDialog.dismiss();
+
+                                    } else {
+                                        Log.d("test",
+                                                "There was a problem downloading the data.");
+                                    }
+                                    }
+                                });
+                    }
+                });
+
+
+
+
+
+}
 
     public void profilebutton(View v){
 //버튼 클릭시 처리로직
-        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
         intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
@@ -90,16 +153,9 @@ public class NavBaseActivity extends ActionBarActivity {
             {
                 try {
                     //Uri에서 이미지 이름을 얻어온다.
-
                     String name_Str = getImageNameToUri(data.getData());
-
                     //이미지 데이터를 비트맵으로 받아온다.
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    //ImageView image = (ImageView) findViewById(R.id.profileimage);
-
-                    //배치해놓은 ImageView에 set
-                    //image.setImageBitmap(image_bitmap);
-
 
 
                     ParseObject ImageValues = new ParseObject("profile_pic");//파스 오브젝트 생성
@@ -111,10 +167,13 @@ public class NavBaseActivity extends ActionBarActivity {
 
                     ImageValues.put("profile" + "image", ImageFile);
                     ImageValues.put("User", user);
+                    ImageValues.put("Name", "profile");
                     ImageValues.saveInBackground();
+                    objectId = ImageValues.getObjectId();
                     Toast.makeText(this, "텍스트 업로드 완료",Toast.LENGTH_SHORT).show();
                     //finish();
                     ParseFile fileObject = (ParseFile) ImageValues.get("profileimage");
+
                     fileObject.getDataInBackground(new GetDataCallback() {
                         @Override
                         public void done(byte[] bytes, ParseException e) {
@@ -279,17 +338,15 @@ public class NavBaseActivity extends ActionBarActivity {
         // update the main content by replacing fragments
         switch (position) {
             case 0:
-                Intent intent = new Intent(this, NavActivity1.class);
-                startActivity(intent);
-                finish();
+
                 break;
             case 1:
-                Intent intent1 = new Intent(this, ChartActivity.class);
+                Intent intent1 = new Intent(this, NavActivity1.class);
                 startActivity(intent1);
                 finish();
                 break;
             case 2:
-                Intent intent2 = new Intent(this, NavActivity3.class);
+                Intent intent2 = new Intent(this, ChartActivity.class);
                 startActivity(intent2);
                 finish();
                 break;
@@ -299,14 +356,16 @@ public class NavBaseActivity extends ActionBarActivity {
                 finish();
                 break;
             case 4:
-                Intent intent4 = new Intent(this, NavActivity5.class);
+                Intent intent4 = new Intent(this, NavActivity3.class);
                 startActivity(intent4);
                 finish();
                 break;
             case 5:
                 Intent intent5 = new Intent(this, NavActivity5.class);
+                startActivity(intent5);
                 finish();
                 break;
+
             default:
                 break;
         }
