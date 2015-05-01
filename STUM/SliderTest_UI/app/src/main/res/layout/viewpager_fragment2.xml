@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.androidhuman.example.navigationdrawer.basicfragments.app.ImageFragment">
+    tools:context="com.androidhuman.example.navigationdrawer.basicfragments.app.ImageFragment"
+    android:background="@drawable/main_background">
+
     <ImageView
         android:id="@+id/iv_fragment_image"
         android:scaleType="center"

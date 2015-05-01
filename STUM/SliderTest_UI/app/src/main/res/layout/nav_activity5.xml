@@ -3,7 +3,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background">
+    android:background="@drawable/main_background"
+    android:paddingTop="?attr/actionBarSize">
 
     <!-- The main content view -->
 
@@ -11,7 +12,6 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize"
         android:background="@drawable/main_background">
 
         <ListView android:id="@+id/ListView01"
@@ -29,7 +29,6 @@
         android:id="@+id/left_drawer"
         android:layout_width="180dp"
         android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize"
         android:layout_gravity="start"
         android:background="#324366"
         android:choiceMode="singleChoice"

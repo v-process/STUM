@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,12 +20,11 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 //로그인 성공시 리스트뷰가 보여짐
-public class NavActivity1 extends NavBaseActivity implements ActionBar.TabListener{
+public class NavActivity1 extends NavBaseActivity {
 
     ViewPager viewPager;
     TapFragmentManager fragmentManger;
 
-    ActionBar actionBar;
     //뷰페이져에 나오는 이름 탭네임 등록.
     String[] tabName = {"물", "물과 건강", "기타"};
 
@@ -37,7 +34,6 @@ public class NavActivity1 extends NavBaseActivity implements ActionBar.TabListen
     private static final String TAG = "NavActivity1";
     private static final int DLG_WEIGHT = 0;
     private static final int TEXT_ID = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,23 +46,13 @@ public class NavActivity1 extends NavBaseActivity implements ActionBar.TabListen
 
         viewPager = (ViewPager) findViewById(R.id.pager);
 
-        actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(android.support.v7.app.ActionBar.NAVIGATION_MODE_TABS);
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-
         fragmentManger = new TapFragmentManager(getSupportFragmentManager());
         viewPager.setAdapter(fragmentManger);
-
-        for (String str : tabName) {
-            actionBar.addTab(actionBar.newTab().setText(str).setTabListener(this));
-        }
 
         viewPager.setOnPageChangeListener(new android.support.v4.view.ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int tabPosition) {
-                actionBar.setSelectedNavigationItem(tabPosition);
+                //actionBar.setSelectedNavigationItem(tabPosition);
 
             }
 
@@ -111,24 +97,6 @@ public class NavActivity1 extends NavBaseActivity implements ActionBar.TabListen
                     Toast.LENGTH_LONG).show();
         }
     };
-
-    @Override
-    public void onTabReselected(ActionBar.Tab arg0, FragmentTransaction arg1) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction arg1) {
-        // TODO Auto-generated method stub
-        viewPager.setCurrentItem(tab.getPosition());
-        // viewPager.notifyAll();
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab arg0, FragmentTransaction arg1) {
-        // TODO Auto-generated method stub
-    }
 
 
     @Override
@@ -205,8 +173,6 @@ public class NavActivity1 extends NavBaseActivity implements ActionBar.TabListen
     }
 
 
-
-
     // TapFragmentManager Class
     public class TapFragmentManager extends FragmentPagerAdapter {
         public TapFragmentManager(FragmentManager fm) {
@@ -227,6 +193,11 @@ public class NavActivity1 extends NavBaseActivity implements ActionBar.TabListen
         public int getCount() {
             // TODO Auto-generated method stub
             return tabName.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabName[position];
         }
     }
 }

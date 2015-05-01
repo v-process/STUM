@@ -7,7 +7,6 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -55,18 +54,13 @@ public class NavBaseActivity extends ActionBarActivity {
 
     final int REQ_CODE_SELECT_IMAGE=100;
     private ParseFile ImageFile;
+    Bitmap bmp;
+    ParseFile fileObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.drawer);
-        // if (savedInstanceState == null) {
-        // // on first time display view for first nav item
-        // // displayView(0);
-        // }
-
-
     }
 
     public void profilebutton(View v){
@@ -80,8 +74,6 @@ public class NavBaseActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
         Toast.makeText(getBaseContext(), "resultCode : " + resultCode, Toast.LENGTH_SHORT).show();
 
         if(requestCode == REQ_CODE_SELECT_IMAGE)
@@ -100,8 +92,6 @@ public class NavBaseActivity extends ActionBarActivity {
                     //배치해놓은 ImageView에 set
                     //image.setImageBitmap(image_bitmap);
 
-
-
                     ParseObject ImageValues = new ParseObject("profile_pic");//파스 오브젝트 생성
                     ParseUser user = ParseUser.getCurrentUser();
                     ByteArrayOutputStream byteArray2 = new ByteArrayOutputStream();
@@ -114,26 +104,22 @@ public class NavBaseActivity extends ActionBarActivity {
                     ImageValues.saveInBackground();
                     Toast.makeText(this, "텍스트 업로드 완료",Toast.LENGTH_SHORT).show();
                     //finish();
-                    ParseFile fileObject = (ParseFile) ImageValues.get("profileimage");
+                    fileObject = (ParseFile) ImageValues.get("profileimage");
                     fileObject.getDataInBackground(new GetDataCallback() {
                         @Override
                         public void done(byte[] bytes, ParseException e) {
                             if (e == null) {
-                                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 ImageView image = (ImageView) findViewById(R.id.profileimage);
                                 image.setImageBitmap(bmp);
                             } else {
                                 Log.d("test", "문제발생");
                             }
-
                         }
 
                     });
 
-
                     //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
-
-
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -147,6 +133,7 @@ public class NavBaseActivity extends ActionBarActivity {
             }
         }
     }
+
     public String getImageNameToUri(Uri data)
     {
         String[] proj = { MediaStore.Images.Media.DATA };
@@ -161,18 +148,16 @@ public class NavBaseActivity extends ActionBarActivity {
         return imgName;
     }
 
-
-
     public void set(String[] navMenuTitles, TypedArray navMenuIcons) {
         mTitle = mDrawerTitle = getTitle();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         navDrawerItems = new ArrayList<NavDrawerItem>();
-        //네비게이션 헤더 추가.
+        // 네비게이션 헤더 추가.
         View header = getLayoutInflater().inflate(R.layout.nav_header, null);
         mDrawerList.addHeaderView(header, null, false);
-      //  mDrawerList.setAdapter(adapter);
+        // mDrawerList.setAdapter(adapter);
 
         // adding nav drawer items
         if (navMenuIcons == null) {
@@ -196,12 +181,9 @@ public class NavBaseActivity extends ActionBarActivity {
 
         /////////////////*****************************************************************
         getSupportActionBar().setBackgroundDrawable(
-                //new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-                new ColorDrawable(Color.argb(128, 0, 0, 0)));
-        //getSupportActionBar().setStackedBackgroundDrawable(
-                //new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-
-
+                new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        getSupportActionBar().setStackedBackgroundDrawable(
+                new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
         // enabling action bar app icon and behaving it as toggle button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -284,12 +266,12 @@ public class NavBaseActivity extends ActionBarActivity {
                 finish();
                 break;
             case 1:
-                Intent intent1 = new Intent(this, ChartActivity.class);
+                Intent intent1 = new Intent(this, NavActivity1.class);
                 startActivity(intent1);
                 finish();
                 break;
             case 2:
-                Intent intent2 = new Intent(this, NavActivity3.class);
+                Intent intent2 = new Intent(this, ChartActivity.class);
                 startActivity(intent2);
                 finish();
                 break;
@@ -305,6 +287,7 @@ public class NavBaseActivity extends ActionBarActivity {
                 break;
             case 5:
                 Intent intent5 = new Intent(this, NavActivity5.class);
+                startActivity(intent5);
                 finish();
                 break;
             default:

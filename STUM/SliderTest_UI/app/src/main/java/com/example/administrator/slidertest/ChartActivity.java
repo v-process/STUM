@@ -28,7 +28,6 @@ public class ChartActivity extends NavBaseActivity {
 
         fragmentManger = new TapFragmentManager(getSupportFragmentManager());
         viewPager.setAdapter(fragmentManger);
-
     }
 
 

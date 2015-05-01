@@ -9,6 +9,8 @@ public class NavActivity3 extends NavBaseActivity {
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
 
+    NavBaseActivity te;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +19,7 @@ public class NavActivity3 extends NavBaseActivity {
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load titles from strings.xml
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);//load icons from strings.xml
         set(navMenuTitles,navMenuIcons);
+
     }
 
 
