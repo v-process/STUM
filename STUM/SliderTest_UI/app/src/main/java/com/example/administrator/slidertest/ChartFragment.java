@@ -75,7 +75,7 @@ public class ChartFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> dateList, ParseException e) {
                 if (e == null) {
-                    for(int i=0;i<dateList.size();i++) {
+                    for(int i=0; i<2; i++) {
                         Log.d("data", "Retrieved Object is " + dateList.get(i).getString("Date"));
                         strDate[i] = dateList.get(i).getString("Date");
                     }
