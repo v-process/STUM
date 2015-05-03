@@ -57,13 +57,15 @@ public class LoginSignupActivity extends Activity {
                                             LoginSignupActivity.this,
                                             NavActivity1.class);
                                     startActivity(intent);
+                                    String struser = user.getUsername().toString();
+
                                     Toast.makeText(getApplicationContext(),
-                                            "Successfully Logged in",
+                                            "안녕하세요 "+ struser +" 님",
                                             Toast.LENGTH_LONG).show();
                                     finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(),
-                                            "No such user exist, please signup",
+                                            "아이디나 비밀번호가 틀린 것 같습니다. 회원가입 해주세요.",
                                             Toast.LENGTH_LONG).show();
                                 }
                             }

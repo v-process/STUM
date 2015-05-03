@@ -3,8 +3,9 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
-    android:paddingTop="?attr/actionBarSize">
+    android:background="@drawable/actionbar_background"
+    android:paddingTop="?attr/actionBarSize"
+    >
 
     <!-- The main content view -->
 
@@ -12,12 +13,14 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/main_background">
+        android:background="@drawable/main_background"
+        android:paddingTop="?attr/actionBarSize">
 
         <ListView android:id="@+id/ListView01"
 
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            >
 
         </ListView>
 
@@ -33,7 +36,9 @@
         android:background="#324366"
         android:choiceMode="singleChoice"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:dividerHeight="0dp"
+        android:paddingTop="?attr/actionBarSize"
+        />
 
 
 </android.support.v4.widget.DrawerLayout>

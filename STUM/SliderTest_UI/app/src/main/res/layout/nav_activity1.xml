@@ -3,25 +3,38 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    android:paddingTop="?attr/actionBarSize"
+    android:background="@drawable/main_background3">
 
     <!-- The main content view -->
 
-    <RelativeLayout
+    <FrameLayout
         android:paddingTop="?attr/actionBarSize"
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/main_background">
 
-        <android.support.v4.view.ViewPager
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:text="Hey there!!"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
 
-        </android.support.v4.view.ViewPager>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="통지"
+            android:id="@+id/notification_btn"
+            android:layout_gravity="center_horizontal" />
 
-    </RelativeLayout>
+    </FrameLayout>
 
     <!-- The navigation drawer -->
 

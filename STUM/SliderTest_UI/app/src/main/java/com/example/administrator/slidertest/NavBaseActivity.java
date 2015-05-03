@@ -24,10 +24,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
@@ -56,11 +58,46 @@ public class NavBaseActivity extends ActionBarActivity {
     private ParseFile ImageFile;
     Bitmap bmp;
     ParseFile fileObject;
+    ParseObject ob;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer);
+        ParseUser user = ParseUser.getCurrentUser();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("profile_pic");
+        query.whereEqualTo("User", user);
+       // query.orderByAscending("createdAt");
+
+        query.addDescendingOrder("createdAt");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    Log.d("score", "The getFirst request failed.");
+                    Toast.makeText(getBaseContext(), "없나바", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Log.d("score", "Retrieved the object.");
+                    Toast.makeText(getBaseContext(), "그래도 있나바 : ", Toast.LENGTH_SHORT).show();
+                    fileObject = (ParseFile) object.get("profileimage");
+                    fileObject.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] bytes, ParseException e) {
+                            if (e == null) {
+                                bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                ImageView image = (ImageView) findViewById(R.id.profileimage);
+                                image.setImageBitmap(bmp);
+                            } else {
+                                Log.d("test", "문제발생");
+                            }
+                        }
+
+                    });
+                }
+            }
+        });
     }
 
     public void profilebutton(View v){
@@ -74,7 +111,7 @@ public class NavBaseActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(getBaseContext(), "resultCode : " + resultCode, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(), "resultCode : " + resultCode, Toast.LENGTH_SHORT).show();
 
         if(requestCode == REQ_CODE_SELECT_IMAGE)
         {
@@ -91,33 +128,7 @@ public class NavBaseActivity extends ActionBarActivity {
 
                     //배치해놓은 ImageView에 set
                     //image.setImageBitmap(image_bitmap);
-
-                    ParseObject ImageValues = new ParseObject("profile_pic");//파스 오브젝트 생성
-                    ParseUser user = ParseUser.getCurrentUser();
-                    ByteArrayOutputStream byteArray2 = new ByteArrayOutputStream();
-                    image_bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArray2);
-                    byte[] image_to_byte = byteArray2.toByteArray();
-                    ImageFile = new ParseFile(name_Str, image_to_byte);
-
-                    ImageValues.put("profile" + "image", ImageFile);
-                    ImageValues.put("User", user);
-                    ImageValues.saveInBackground();
-                    Toast.makeText(this, "텍스트 업로드 완료",Toast.LENGTH_SHORT).show();
-                    //finish();
-                    fileObject = (ParseFile) ImageValues.get("profileimage");
-                    fileObject.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] bytes, ParseException e) {
-                            if (e == null) {
-                                bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                ImageView image = (ImageView) findViewById(R.id.profileimage);
-                                image.setImageBitmap(bmp);
-                            } else {
-                                Log.d("test", "문제발생");
-                            }
-                        }
-
-                    });
+                    upload(name_Str, image_bitmap);
 
                     //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
                 } catch (FileNotFoundException e) {
@@ -132,6 +143,39 @@ public class NavBaseActivity extends ActionBarActivity {
                 }
             }
         }
+    }
+    public  void upload(String name_Str, Bitmap image_bitmap){
+        ParseObject ImageValues = new ParseObject("profile_pic");//파스 오브젝트 생성
+        ParseUser user = ParseUser.getCurrentUser();
+        ByteArrayOutputStream byte1 = new ByteArrayOutputStream();
+        image_bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byte1);
+        byte[] image_to_byte = byte1.toByteArray();
+        ImageFile = new ParseFile(name_Str, image_to_byte);
+
+        ImageValues.put("profile" + "image", ImageFile);
+        ImageValues.put("User", user);
+        ImageValues.saveInBackground();
+        Toast.makeText(this, "프로필 업로드 완료",Toast.LENGTH_SHORT).show();
+        //finish();
+        getfile(ImageValues);
+        //finish();
+
+    }
+    public void getfile(ParseObject ImageValues){
+        fileObject = (ParseFile) ImageValues.get("profileimage");
+        fileObject.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] bytes, ParseException e) {
+                if (e == null) {
+                    bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    ImageView image = (ImageView) findViewById(R.id.profileimage);
+                    image.setImageBitmap(bmp);
+                } else {
+                    Log.d("test", "문제발생");
+                }
+            }
+
+        });
     }
 
     public String getImageNameToUri(Uri data)
@@ -261,9 +305,7 @@ public class NavBaseActivity extends ActionBarActivity {
         // update the main content by replacing fragments
         switch (position) {
             case 0:
-                Intent intent = new Intent(this, NavActivity1.class);
-                startActivity(intent);
-                finish();
+
                 break;
             case 1:
                 Intent intent1 = new Intent(this, NavActivity1.class);

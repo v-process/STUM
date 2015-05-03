@@ -10,7 +10,7 @@
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon6"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
         <activity
@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NavActivity1"
-            android:label="@string/app_name" >
+            android:name=".NavActivity3"
+            android:label="정보" >
         </activity>
         <activity
             android:name=".NavDrawerItem"
@@ -39,12 +39,12 @@
             android:label="@string/title_activity_base" >
         </activity>
         <activity
-            android:name=".NavActivity3"
-            android:label="@string/title_activity_first" >
+            android:name=".NavActivity1"
+            android:label="" >
         </activity>
         <activity
             android:name=".NavActivity5"
-            android:label="@string/title_activity_two" >
+            android:label="설정" >
         </activity>
         <activity android:name=".LoginSignupActivity" >
         </activity>
@@ -55,7 +55,7 @@
         <activity android:name=".BLUETOOTH.DeviceListActivity" />
         <activity
             android:name=".ChartActivity"
-            android:label="@string/title_activity_chart" >
+            android:label="통계             " >
         </activity>
         <activity
             android:name=".ChartFragment"
