@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+
+    <item
+        android:id="@+id/datePicker"
+        android:title="datePick"
+        android:icon="@drawable/main_calenderbutton"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/weight_change"
+        android:title="weightChange"
+        android:icon="@drawable/main_weightbutton"
+        app:showAsAction="always" />
+
+</menu>
