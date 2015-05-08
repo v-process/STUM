@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.GetCallback;
@@ -54,59 +55,40 @@ public class NavBaseActivity extends ActionBarActivity {
     private NavDrawerListAdapter adapter;
 
 
-    final int REQ_CODE_SELECT_IMAGE=100;
+    final int REQ_CODE_SELECT_IMAGE = 100;
     private ParseFile ImageFile;
     Bitmap bmp;
     ParseFile fileObject;
     ParseObject ob;
-
-
+    TextView txt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer);
+
+        txt = (TextView)findViewById(R.id.profiletext);
         ParseUser user = ParseUser.getCurrentUser();
+        String struser = user.getUsername().toString();
+//txt.setText(struser);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("profile_pic");
-        query.whereEqualTo("User", user);
-       // query.orderByAscending("createdAt");
 
-        query.addDescendingOrder("createdAt");
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object == null) {
-                    Log.d("score", "The getFirst request failed.");
-                    Toast.makeText(getBaseContext(), "없나바", Toast.LENGTH_SHORT).show();
 
-                } else {
-                    Log.d("score", "Retrieved the object.");
-                    Toast.makeText(getBaseContext(), "그래도 있나바 : ", Toast.LENGTH_SHORT).show();
-                    fileObject = (ParseFile) object.get("profileimage");
-                    fileObject.getDataInBackground(new GetDataCallback() {
-                        @Override
-                        public void done(byte[] bytes, ParseException e) {
-                            if (e == null) {
-                                bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                ImageView image = (ImageView) findViewById(R.id.profileimage);
-                                image.setImageBitmap(bmp);
-                            } else {
-                                Log.d("test", "문제발생");
-                            }
-                        }
-
-                    });
-                }
-            }
-        });
     }
 
     public void profilebutton(View v){
 //버튼 클릭시 처리로직
+
         Intent intent = new Intent(Intent.ACTION_PICK);
+
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
         intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
         startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+
     }
+
+
+
 
 
     @Override
@@ -202,6 +184,46 @@ public class NavBaseActivity extends ActionBarActivity {
         View header = getLayoutInflater().inflate(R.layout.nav_header, null);
         mDrawerList.addHeaderView(header, null, false);
         // mDrawerList.setAdapter(adapter);
+
+
+        //사용자 이름 받아오는 곳 .
+        txt = (TextView)findViewById(R.id.profiletext);
+        ParseUser user = ParseUser.getCurrentUser();
+        String struser = user.getUsername().toString();
+        txt.setText(struser);
+
+//서버에서 이미지 받아오는 곳.
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("profile_pic");
+        query.whereEqualTo("User", user);
+        // query.orderByAscending("createdAt");
+
+        query.addDescendingOrder("createdAt");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    Log.d("score", "The getFirst request failed.");
+                    Toast.makeText(getBaseContext(), "없나바", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Log.d("score", "Retrieved the object.");
+                    Toast.makeText(getBaseContext(), "그래도 있나바 : ", Toast.LENGTH_SHORT).show();
+                    fileObject = (ParseFile) object.get("profileimage");
+                    fileObject.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] bytes, ParseException e) {
+                            if (e == null) {
+                                bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                ImageView image = (ImageView) findViewById(R.id.profileimage);
+                                image.setImageBitmap(bmp);
+                            } else {
+                                Log.d("test", "문제발생");
+                            }
+                        }
+
+                    });
+                }
+            }
+        });
 
         // adding nav drawer items
         if (navMenuIcons == null) {

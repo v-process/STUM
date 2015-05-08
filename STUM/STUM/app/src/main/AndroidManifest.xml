@@ -7,14 +7,17 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+
     <application
-        android:name="com.example.administrator.STUM.ParseApplication"
+        android:name=".ParseApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon6"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
         <activity
-            android:name="com.example.administrator.STUM.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,46 +26,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.NavActivity3"
+            android:name=".NavActivity3"
             android:label="정보" >
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.NavDrawerItem"
+            android:name=".NavDrawerItem"
             android:label="@string/title_activity_nav_drawer_item" >
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.NavDrawerListAdapter"
+            android:name=".NavDrawerListAdapter"
             android:label="@string/title_activity_nav_drawer_list_adapter" >
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.NavBaseActivity"
+            android:name=".NavBaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.NavActivity1"
+            android:name=".NavActivity1"
             android:label="오늘" >
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.NavActivity5"
+            android:name=".NavActivity5"
             android:label="설정" >
         </activity>
-        <activity android:name="com.example.administrator.STUM.LoginSignupActivity" >
+        <activity android:name=".LoginSignupActivity" >
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.BLUETOOTH.BluetoothActivity"
+            android:name=".BLUETOOTH.BluetoothActivity"
             android:label="@string/app_name" >
         </activity>
-        <activity android:name="com.example.administrator.STUM.BLUETOOTH.DeviceListActivity" />
+        <activity android:name=".BLUETOOTH.DeviceListActivity" />
         <activity
-            android:name="com.example.administrator.STUM.ChartActivity"
+            android:name=".ChartActivity"
             android:label="통계             " >
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.ChartFragment"
+            android:name=".ChartFragment"
             android:label="@string/title_activity_chart_fragment" >
         </activity>
         <activity
-            android:name="com.example.administrator.STUM.DatePickerFragment"
+            android:name=".DatePickerFragment"
             android:label="@string/title_activity_date_picker" >
         </activity>
     </application>
