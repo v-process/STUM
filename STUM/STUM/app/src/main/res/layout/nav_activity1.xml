@@ -28,12 +28,38 @@
             android:textColor="#ffffff"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/temp_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal = "true"
+            android:text="온도"
+             />
+
+        <TextView
+            android:id="@+id/drink_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_centerHorizontal = "true"
+            android:text="마신물"
+            />
+
+        <ImageView
+            android:id="@+id/char_1"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal = "true"
+            android:layout_centerVertical = "true"
+            android:layout_gravity="center" />
+
         <Button
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:text="통지"
             android:id="@+id/notification_btn"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal|bottom" />
 
     </FrameLayout>
 
