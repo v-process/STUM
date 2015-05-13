@@ -36,9 +36,7 @@ public class NavActivity1 extends NavBaseActivity {
     int total;
 
 
-    int suma;
-    int sumb;
-
+    ParseObject usercalculate = new ParseObject("Calculate");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +65,38 @@ public class NavActivity1 extends NavBaseActivity {
 
         getuserdata();
         getuserdrink();
+        Calculate();
+    }
+
+    void Calculate() {
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Calculate");
+        query.addDescendingOrder("createdAt");
+        query.whereEqualTo("User", user);
+
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    Log.d("score", "The getFirst request failed.");
+                    Toast.makeText(getBaseContext(), "calculate 테이블 없네", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Log.d("score", "Retrieved the object.");
+                    Toast.makeText(getBaseContext(), "calculate 테이블 있네", Toast.LENGTH_SHORT).show();
+
+                    int a = (int) object.get("userdrink");
+                    int b = (int) object.get("currentdrink");
+                    drink2.setText(String.valueOf(userdrink));
+
+                    divide(a , b);
+
+                }
+            }
+        });
+
+    }
+    void divide(int a, int b){
+        Toast.makeText(getBaseContext(), a + " "+ b + "있네", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -92,30 +122,18 @@ public class NavActivity1 extends NavBaseActivity {
                     userdrink = (int) object.get("Drink");
 
                     drink2.setText(String.valueOf(userdrink));
-                    result1(userdrink);
+                    ParseUser user = ParseUser.getCurrentUser();
+                    usercalculate.put("User", user);
+                    usercalculate.put("userdrink", userdrink);
+                    usercalculate.saveInBackground();
                 }
             }
         });
 
     }
 
-int result1(int drink){
-    Toast.makeText(getBaseContext(), "drink1 결과1 호출" + drink, Toast.LENGTH_SHORT).show();
-suma = drink;
-    return drink;
-}
-int result2(int drink2){
-sumb = drink2;
-    return drink2;
-}
 
-    int calculate(int current, int total){
 
-        int a = current;
-        int b = total;
-        int c = a+b;
-        return c;
-    }
 
 //현재 물의 온도 및 마신양 가져오는 함수 정의.
     void getuserdata(){
@@ -144,8 +162,9 @@ sumb = drink2;
 
                     temp.setText(String.valueOf(temp_1));
                     drink.setText(String.valueOf(currentdrink));
-                    result1(currentdrink);
+                    usercalculate.put("currentdrink", currentdrink);
 
+                    usercalculate.saveInBackground();
                 }
             }
         });
