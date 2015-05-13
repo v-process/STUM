@@ -96,8 +96,12 @@ public class LoginSignupActivity extends Activity {
                             if (e == null) {
                                 // Show a simple Toast message upon successful registration
                                 Toast.makeText(getApplicationContext(),
-                                        "회원가입이 완료 되었습니다. 로그인 해주세요",
+                                        "회원가입이 완료 되었습니다.",
                                         Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(
+                                        LoginSignupActivity.this,
+                                        UserDrink.class);
+                                startActivity(intent);
                             } else {
                                 Toast.makeText(getApplicationContext(),
                                         "회원가입 에러", Toast.LENGTH_LONG)

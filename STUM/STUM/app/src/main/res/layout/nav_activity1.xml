@@ -8,7 +8,7 @@
 
     <!-- The main content view -->
 
-    <FrameLayout
+    <RelativeLayout
         android:paddingTop="?attr/actionBarSize"
         android:background="@drawable/main_background"
         android:id="@+id/content_frame"
@@ -32,8 +32,8 @@
             android:id="@+id/temp_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal = "true"
+            android:layout_marginTop="450dp"
+            android:layout_marginLeft="100dp"
             android:text="온도"
              />
 
@@ -41,10 +41,26 @@
             android:id="@+id/drink_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:layout_centerHorizontal = "true"
+            android:layout_marginTop="380dp"
+            android:layout_marginLeft="130dp"
             android:text="마신물"
             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="380dp"
+            android:text = "/"/>
+
+        <TextView
+            android:id="@+id/drink_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="목표"
+            android:layout_alignTop="@+id/drink_view"
+            android:layout_alignRight="@+id/textView1"
+            android:layout_alignEnd="@+id/textView1" />
 
         <ImageView
             android:id="@+id/char_1"
@@ -61,7 +77,9 @@
             android:id="@+id/notification_btn"
             android:layout_gravity="center_horizontal|bottom" />
 
-    </FrameLayout>
+
+
+    </RelativeLayout>
 
     <!-- The navigation drawer -->
 

@@ -68,6 +68,8 @@
             android:name=".DatePickerFragment"
             android:label="@string/title_activity_date_picker" >
         </activity>
+        <activity android:name=".UserDrink"></activity>
+
 
     </application>
 

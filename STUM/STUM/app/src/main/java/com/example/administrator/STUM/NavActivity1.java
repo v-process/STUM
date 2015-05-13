@@ -27,8 +27,19 @@ public class NavActivity1 extends NavBaseActivity {
     private TypedArray navMenuIcons;
     TextView temp;
     TextView drink;
+    TextView drink2;
     ImageView image1;
     ImageView image2;
+    int userdrink;
+    int currentdrink;
+    int current;
+    int total;
+
+
+    int suma;
+    int sumb;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,26 +47,78 @@ public class NavActivity1 extends NavBaseActivity {
 
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load titles from strings.xml
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);//load icons from strings.xml
-        set(navMenuTitles,navMenuIcons);
-        temp = (TextView)findViewById(R.id.temp_view);
-        drink = (TextView)findViewById(R.id.drink_view);
-        image1 = (ImageView)findViewById(R.id.char_1);
+        set(navMenuTitles, navMenuIcons);
+        temp = (TextView) findViewById(R.id.temp_view);
+        drink = (TextView) findViewById(R.id.drink_view);
+        drink2 = (TextView) findViewById(R.id.drink_view2);
+
+        image1 = (ImageView) findViewById(R.id.char_1);
         //노티피케이션 버튼
         Button notificationButton = (Button) findViewById(R.id.notification_btn);
 
         notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Notify("Title: 안녕하세요",
-                            "통지 메세지입니다.");
-                }
+                Notify("Title: 안녕하세요",
+                        "통지 메세지입니다.");
+            }
         });
 //현재 물의 온도 및 마신양 가져오는 함수 호출.
-        getimage();
+
+        getuserdata();
+        getuserdrink();
 
     }
+
+
+    void getuserdrink() {
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserDrink");
+        query.addDescendingOrder("createdAt");
+        query.whereEqualTo("User", user);
+
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    Log.d("score", "The getFirst request failed.");
+                    Toast.makeText(getBaseContext(), "User drink 없음", Toast.LENGTH_SHORT).show();
+                    Intent intent1 = new Intent(NavActivity1.this, UserDrink.class);
+                    startActivity(intent1);
+                    finish();
+                } else {
+                    Log.d("score", "Retrieved the object.");
+                    Toast.makeText(getBaseContext(), "User drink 있어", Toast.LENGTH_SHORT).show();
+
+                    userdrink = (int) object.get("Drink");
+
+                    drink2.setText(String.valueOf(userdrink));
+                    result1(userdrink);
+                }
+            }
+        });
+
+    }
+
+int result1(int drink){
+    Toast.makeText(getBaseContext(), "drink1 결과1 호출" + drink, Toast.LENGTH_SHORT).show();
+suma = drink;
+    return drink;
+}
+int result2(int drink2){
+sumb = drink2;
+    return drink2;
+}
+
+    int calculate(int current, int total){
+
+        int a = current;
+        int b = total;
+        int c = a+b;
+        return c;
+    }
+
 //현재 물의 온도 및 마신양 가져오는 함수 정의.
-    void getimage(){
+    void getuserdata(){
         ParseUser user = ParseUser.getCurrentUser();
         //서버에서 이미지 받아오는 곳.
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChartTest");
@@ -74,18 +137,20 @@ public class NavActivity1 extends NavBaseActivity {
                     Toast.makeText(getBaseContext(), "물양이랑 온도 있나바 : ", Toast.LENGTH_SHORT).show();
 
                     int temp_1;
-                    int drink_1;
                     temp_1 = (int) object.get("drink");
-                    drink_1 = (int) object.get("temp");
+                    currentdrink = (int) object.get("temp");
 
-                    charimage(drink_1);
+                    charimage(currentdrink);
 
                     temp.setText(String.valueOf(temp_1));
-                    drink.setText(String.valueOf(drink_1));
+                    drink.setText(String.valueOf(currentdrink));
+                    result1(currentdrink);
+
                 }
             }
         });
     }
+
 
 //이미지 세팅 함수.
     void charimage(int drink_1){
