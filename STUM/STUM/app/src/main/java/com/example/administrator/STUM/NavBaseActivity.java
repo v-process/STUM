@@ -349,11 +349,6 @@ public class NavBaseActivity extends ActionBarActivity {
                 startActivity(intent4);
                 finish();
                 break;
-            case 5:
-                Intent intent5 = new Intent(this, NavActivity5.class);
-                startActivity(intent5);
-                finish();
-                break;
             default:
                 break;
         }

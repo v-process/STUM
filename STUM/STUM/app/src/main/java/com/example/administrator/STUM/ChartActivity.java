@@ -3,8 +3,8 @@ package com.example.administrator.STUM;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
 
 public class ChartActivity extends NavBaseActivity {
@@ -12,7 +12,7 @@ public class ChartActivity extends NavBaseActivity {
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
 
-    ViewPager viewPager;
+    //ViewPager viewPager;
     TapFragmentManager fragmentManger;
 
     @Override
@@ -20,35 +20,61 @@ public class ChartActivity extends NavBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chart);
 
-        viewPager = (ViewPager) findViewById(R.id.pager_chart);
-
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load titles from strings.xml
-        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);//load icons from strings.xml
-        set(navMenuTitles,navMenuIcons);
+        navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons); // load icons from strings.xml
+        set(navMenuTitles, navMenuIcons);
 
-        fragmentManger = new TapFragmentManager(getSupportFragmentManager());
-        viewPager.setAdapter(fragmentManger);
+        //viewPager = (ViewPager) findViewById(R.id.pager);
+
+        //fragmentManger = new TapFragmentManager(getSupportFragmentManager());
+        //viewPager.setAdapter(fragmentManger);
+
+        /*
+        viewPager.setOnPageChangeListener(new android.support.v4.view.ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int tabPosition) {
+                //actionBar.setSelectedNavigationItem(tabPosition);
+
+            }
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+        */
     }
 
-
-    // TapFragmentManager Class ***************************************
+    // TapFragmentManager Class
     public class TapFragmentManager extends FragmentPagerAdapter {
-        public TapFragmentManager(android.support.v4.app.FragmentManager fm) {
+        public TapFragmentManager(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int tab_position) {
             switch(tab_position) {
-                case 0: return ChartFragment.newInstance();
-                default: return ChartFragment.newInstance();
+                case 0: return ChartVolume.newInstance();
+                case 1: return ChartTemp.newInstance();
+                default: return ChartVolume.newInstance();
             }
         }
 
         @Override
         public int getCount() {
             // TODO Auto-generated method stub
-            return 1;
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return null;
         }
     }
+
 }

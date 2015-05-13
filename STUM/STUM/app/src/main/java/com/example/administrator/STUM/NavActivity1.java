@@ -174,7 +174,7 @@ public class NavActivity1 extends NavBaseActivity {
 //이미지 세팅 함수.
     void charimage(int drink_1){
         if (drink_1 < 50){
-            image1.setImageResource(R.drawable.screaming_android);
+            //image1.setImageResource(R.drawable.screaming_android);
         }
     }
 

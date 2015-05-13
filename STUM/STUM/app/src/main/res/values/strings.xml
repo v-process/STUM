@@ -60,6 +60,8 @@
     <string name="title_activity_chart">ChartActivity</string>
     <string name="title_activity_chart_fragment">ChartFragment</string>
     <string name="title_activity_date_picker">DatePickerActivity</string>
+    <string name="title_activity_chart_volume">ChartVolume</string>
+    <string name="title_activity_chart_temp">ChartTemp</string>
 
 </resources>
 
