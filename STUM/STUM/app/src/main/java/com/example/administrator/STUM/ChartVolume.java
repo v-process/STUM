@@ -75,7 +75,7 @@ public class ChartVolume extends Fragment {
         query2.addDescendingOrder("createdAt");
         //query2.whereGreaterThan("drink", 0);
         //query2.whereGreaterThan("temp", 0);
-        query2.whereEqualTo("date", 504);
+        query2.whereEqualTo("month", 5);
         query2.setLimit(10);
         query2.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> drinkList, ParseException e) {

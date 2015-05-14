@@ -1,0 +1,62 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?attr/actionBarSize"
+    android:background="@drawable/actionbar_background">
+
+    <!-- The main content view -->
+
+    <FrameLayout
+        android:paddingTop="?attr/actionBarSize"
+        android:background="@drawable/main_background"
+        android:id="@+id/content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onBtnStart"
+                android:layout_weight="1"
+                android:text="Start Animation" />
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onBtnStop"
+                android:layout_weight="1"
+                android:text="Stop Animation" />
+
+            <com.example.administrator.STUM.SpriteView
+                android:id="@+id/spriteView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <!-- The navigation drawer -->
+
+    <ListView
+        android:paddingTop="?attr/actionBarSize"
+        android:id="@+id/left_drawer"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#324366"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp" />
+
+</android.support.v4.widget.DrawerLayout>

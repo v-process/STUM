@@ -6,9 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ParseApplication"
@@ -68,9 +66,15 @@
             android:name=".DatePickerFragment"
             android:label="@string/title_activity_date_picker" >
         </activity>
-        <activity android:name=".UserDrink"></activity>
-
-
+        <activity android:name=".UserDrink" />
+        <activity
+            android:name=".Animation"
+            android:label="@string/title_activity_animation" >
+        </activity>
+        <activity
+            android:name=".SpriteView"
+            android:label="@string/title_activity_sprite_view" >
+        </activity>
     </application>
 
 </manifest>

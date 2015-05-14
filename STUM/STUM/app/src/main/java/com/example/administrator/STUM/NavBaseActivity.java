@@ -326,9 +326,6 @@ public class NavBaseActivity extends ActionBarActivity {
     private void displayView(int position) {
         // update the main content by replacing fragments
         switch (position) {
-            case 0:
-
-                break;
             case 1:
                 Intent intent1 = new Intent(this, NavActivity1.class);
                 startActivity(intent1);
@@ -340,7 +337,7 @@ public class NavBaseActivity extends ActionBarActivity {
                 finish();
                 break;
             case 3:
-                Intent intent3 = new Intent(this, NavActivity3.class);
+                Intent intent3 = new Intent(this, Animation.class);
                 startActivity(intent3);
                 finish();
                 break;

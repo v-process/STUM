@@ -1,8 +1,12 @@
 package com.example.administrator.STUM;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -11,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +26,8 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.Calendar;
 
 //네비게이션 프레그먼트3
 public class NavActivity1 extends NavBaseActivity {
@@ -34,6 +42,10 @@ public class NavActivity1 extends NavBaseActivity {
     int currentdrink;
     int current;
     int total;
+
+    private static final String TAG = "NavActivity1";
+    private static final int DLG_WEIGHT = 0;
+    private static final int TEXT_ID = 0;
 
 
     ParseObject usercalculate = new ParseObject("Calculate");
@@ -197,25 +209,104 @@ public class NavActivity1 extends NavBaseActivity {
         notificationManager.notify(9999, notification);
     }
 
+    private void showDatePicker() {
+        DatePickerFragment date = new DatePickerFragment();
+        /**
+         * Set Up Current Date Into dialog
+         */
+        Calendar calender = Calendar.getInstance();
+        Bundle args = new Bundle();
+        args.putInt("year", calender.get(Calendar.YEAR));
+        args.putInt("month", calender.get(Calendar.MONTH));
+        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+        date.setArguments(args);
+        /**
+         * Set Call back to capture selected date
+         */
+        date.setCallBack(ondate);
+        date.show(getSupportFragmentManager(), "Date Picker");
+    }
+
+    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            Toast.makeText(
+                    NavActivity1.this,
+                    String.valueOf(year) + "-" + String.valueOf(monthOfYear)
+                            + "-" + String.valueOf(dayOfMonth),
+                    Toast.LENGTH_LONG).show();
+        }
+    };
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_first, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.datePicker) {
+            showDatePicker();
+            return true;
+        }
+
+        if (id == R.id.weight_change) {
+            showDialog(DLG_WEIGHT);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected Dialog onCreateDialog(int id) {
+        switch(id) {
+            case DLG_WEIGHT:
+                return createExampleDialog();
+            default:
+                return null;
+        }
+    }
+    protected void onPrepareDialog(int id, Dialog dialog){
+        switch(id) {
+            case DLG_WEIGHT:
+                EditText weight = (EditText) dialog.findViewById(TEXT_ID);
+                weight.setText("");
+                break;
+        }
+    }
+
+    private Dialog createExampleDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("체중 변경");
+        builder.setMessage("체중을 자주 갱신해 주세요.");
+
+        // Use an EditText view to get user input.
+        final EditText input = new EditText(this);
+        input.setId(TEXT_ID);
+        builder.setView(input);
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = input.getText().toString();
+                Log.d(TAG, "WEIGHT_CHANGE: " + value);
+                return;
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+
+        return builder.create();
+
     }
 }
