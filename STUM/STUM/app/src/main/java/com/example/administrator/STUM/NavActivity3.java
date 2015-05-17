@@ -74,7 +74,7 @@ public class NavActivity3 extends NavBaseActivity {
         @Override
         public Fragment getItem(int tab_position) {
             switch(tab_position) {
-                case 0: return ViewPagerFragment1.newInstance();
+                case 0: return ViewPagerFragment3.newInstance();
                 case 1: return ViewPagerFragment2.newInstance();
                 case 2: return ViewPagerFragment3.newInstance();
                 default: return ViewPagerFragment1.newInstance();

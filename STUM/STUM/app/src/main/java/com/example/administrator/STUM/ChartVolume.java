@@ -73,8 +73,7 @@ public class ChartVolume extends Fragment {
 
         ParseQuery<ParseObject> query2 = ParseQuery.getQuery("dataTestMH");
         query2.addDescendingOrder("createdAt");
-        //query2.whereGreaterThan("drink", 0);
-        //query2.whereGreaterThan("temp", 0);
+
         query2.whereEqualTo("month", 5);
         query2.setLimit(10);
         query2.findInBackground(new FindCallback<ParseObject>() {
@@ -84,7 +83,7 @@ public class ChartVolume extends Fragment {
                     for (int i=0; i<drinkList.size(); i++) {
                         ParseObject course = drinkList.get(i);
 
-                        int date = course.getInt("date");
+                        Number date = course.getNumber("day");
                         Number vol = course.getNumber("watervolume");
 
                         arrayDate.add(String.valueOf(date));
@@ -94,7 +93,6 @@ public class ChartVolume extends Fragment {
                 else {
                     Log.d("score", "Error: " + e.getMessage());
                 }
-
 
                 mChart.animateX(2500);
 
@@ -120,9 +118,9 @@ public class ChartVolume extends Fragment {
                 YAxis leftAxis = mChart.getAxisLeft();
                 leftAxis.setTextColor(Color.GREEN);
                 leftAxis.setDrawGridLines(false);
-                leftAxis.setStartAtZero(false);
-                leftAxis.setAxisMaxValue(230f);
-                leftAxis.setAxisMinValue(220f);
+                //leftAxis.setStartAtZero(false);
+                //leftAxis.setAxisMaxValue(330f);
+                //leftAxis.setAxisMinValue(610f);
                 leftAxis.setDrawAxisLine(true);
                 leftAxis.enableGridDashedLine(10f, 10f, 0f);
 

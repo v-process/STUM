@@ -38,7 +38,7 @@ import java.util.Calendar;
  * Created by Administrator on 2015-03-25.
  */
 
-public class ViewPagerFragment1 extends Fragment {
+public class ViewPagerFragment1 extends Fragment implements View.OnClickListener {
     private String[] navMenuTitles;
     private TypedArray navMenuIcons;
     TextView temp;
@@ -60,7 +60,10 @@ public class ViewPagerFragment1 extends Fragment {
 
     ParseObject usercalculate = new ParseObject("Calculate");
     ImageView imageview;
-    int imageArray[] = {R.drawable.water0, R.drawable.water1, R.drawable.water2, R.drawable.water3, R.drawable.water4, R.drawable.water5, R.drawable.water6, R.drawable.water7, R.drawable.water8, R.drawable.water9, R.drawable.water10};
+    int imageArray[] = {R.drawable.water0, R.drawable.water1,
+            R.drawable.water2, R.drawable.water3, R.drawable.water4,
+            R.drawable.water5, R.drawable.water6, R.drawable.water7,
+            R.drawable.water8, R.drawable.water9, R.drawable.water10};
 
     public static ViewPagerFragment1 newInstance() {
         ViewPagerFragment1 fragment = new ViewPagerFragment1();
@@ -76,7 +79,8 @@ public class ViewPagerFragment1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.nav_activity1, container, false);
+
+        View v = inflater.inflate(R.layout.viewpager_fragment1, container, false);
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items); // load titles from strings.xml
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);//load icons from strings.xml
         //NavBaseActivity.set(navMenuTitles, navMenuIcons);
@@ -87,14 +91,7 @@ public class ViewPagerFragment1 extends Fragment {
 
         //노티피케이션 버튼
         Button notificationButton = (Button) v.findViewById(R.id.notification_btn);
-
-        notificationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Notify("Title: 안녕하세요", "통지 메세지입니다.");
-            }
-        });
-
+        notificationButton.setOnClickListener(this);
 
         //현재 물의 온도 및 마신양 가져오는 함수 호출.
         getuserdata();
@@ -106,7 +103,10 @@ public class ViewPagerFragment1 extends Fragment {
         return v;
     }
 
-
+    @Override
+    public void onClick(View v) {
+        Notify("Title: 안녕하세요", "통지 메세지입니다.");
+    }
 
     void Calculate() {
         ParseUser user = ParseUser.getCurrentUser();
@@ -132,6 +132,8 @@ public class ViewPagerFragment1 extends Fragment {
             }
         });
     }
+
+
     //물양 이미지 지정 함수
     void divide(int target, int current) {
         if(current >= target) {
@@ -180,9 +182,6 @@ public class ViewPagerFragment1 extends Fragment {
 
     }
 
-
-
-
     //현재 물의 온도 및 마신양 가져오는 함수 정의.
     void getuserdata(){
         ParseUser user = ParseUser.getCurrentUser();
@@ -218,7 +217,8 @@ public class ViewPagerFragment1 extends Fragment {
 
     @SuppressWarnings("deprecation")
     private void Notify(String notificationTitle, String notificationMessage) {
-        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) getActivity().getSystemService(getActivity().NOTIFICATION_SERVICE);
         notificationManager.cancel(1);
 
         @SuppressWarnings("deprecation")

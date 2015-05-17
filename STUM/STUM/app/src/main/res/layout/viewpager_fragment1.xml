@@ -1,13 +1,69 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.androidhuman.example.navigationdrawer.basicfragments.app.TextFragment"
     android:background="@drawable/main_background">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ddddddddddddddddddddd"/>
+    <ImageView
+        android:id="@+id/water_size"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal = "true"
+        android:background="@android:color/white"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/slash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        android:text = "/"
+        android:layout_below="@+id/water_size"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/drink_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="마신물"
+        android:layout_marginRight="20dp"
+        android:layout_alignTop="@+id/slash"
+        android:layout_toLeftOf="@+id/slash"
+        android:layout_toStartOf="@+id/slash" />
+
+    <TextView
+        android:id="@+id/drink_view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="목표"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@+id/slash"
+        android:layout_toRightOf="@+id/slash"
+        android:layout_toEndOf="@+id/slash" />
+
+    <TextView
+        android:id="@+id/temp_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="온도"
+        android:layout_below="@+id/water_size"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="50dp"
+
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="통지"
+        android:id="@+id/notification_btn"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
