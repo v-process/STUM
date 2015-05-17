@@ -337,7 +337,7 @@ public class NavBaseActivity extends ActionBarActivity {
                 finish();
                 break;
             case 3:
-                Intent intent3 = new Intent(this, Animation.class);
+                Intent intent3 = new Intent(this, NavActivity3.class);
                 startActivity(intent3);
                 finish();
                 break;

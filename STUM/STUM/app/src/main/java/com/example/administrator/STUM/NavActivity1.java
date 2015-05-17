@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,8 @@ public class NavActivity1 extends NavBaseActivity {
     TextView drink2;
     ImageView image1;
     ImageView image2;
+    ViewPager viewPager;
+
     int userdrink;
     int currentdrink;
     int current;
@@ -49,6 +52,8 @@ public class NavActivity1 extends NavBaseActivity {
 
 
     ParseObject usercalculate = new ParseObject("Calculate");
+    ImageView imageview;
+    int imageArray[] = {R.drawable.water0, R.drawable.water1, R.drawable.water2, R.drawable.water3, R.drawable.water4, R.drawable.water5, R.drawable.water6, R.drawable.water7, R.drawable.water8, R.drawable.water9, R.drawable.water10};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,22 +66,21 @@ public class NavActivity1 extends NavBaseActivity {
         temp = (TextView) findViewById(R.id.temp_view);
         drink = (TextView) findViewById(R.id.drink_view);
         drink2 = (TextView) findViewById(R.id.drink_view2);
-
-        image1 = (ImageView) findViewById(R.id.char_1);
+        imageview = (ImageView) findViewById(R.id.water_size);
         //노티피케이션 버튼
         Button notificationButton = (Button) findViewById(R.id.notification_btn);
 
         notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notify("Title: 안녕하세요",
-                        "통지 메세지입니다.");
+                Notify("Title: 안녕하세요", "통지 메세지입니다.");
             }
         });
-//현재 물의 온도 및 마신양 가져오는 함수 호출.
-
+        //현재 물의 온도 및 마신양 가져오는 함수 호출.
         getuserdata();
+        //사용자 별 마실 목표 가져오기
         getuserdrink();
+        //마신물과 목표 한번에 가져오기
         Calculate();
     }
 
@@ -96,22 +100,29 @@ public class NavActivity1 extends NavBaseActivity {
                     Log.d("score", "Retrieved the object.");
                     Toast.makeText(getBaseContext(), "calculate 테이블 있네", Toast.LENGTH_SHORT).show();
 
-                    int a = (int) object.get("userdrink");
-                    int b = (int) object.get("currentdrink");
-                    drink2.setText(String.valueOf(userdrink));
-
-                    divide(a , b);
-
+                    int target = (int) object.get("userdrink");
+                    int current = (int) object.get("currentdrink");
+                    drink2.setText(String.valueOf(userdrink) + "ml");
+                    divide(target , current);
                 }
             }
         });
-
     }
-    void divide(int a, int b){
-        Toast.makeText(getBaseContext(), a + " "+ b + "있네", Toast.LENGTH_SHORT).show();
+//물양 이미지 지정 함수
+    void divide(int target, int current) {
+        if(current >= target) {
+            imageview.setImageResource(imageArray[10]);
+            Notify("오늘의 마실물 달성", "축하합니다.");
 
+        }
+        else {
+            for (int i = 10; i > 0; i--) {
+                if (target * (i * 0.1) >= current && current >= target * ((i * 0.1) - 0.1)) {
+                    imageview.setImageResource(imageArray[i-1]);
+                }
+            }
+        }
     }
-
 
     void getuserdrink() {
         ParseUser user = ParseUser.getCurrentUser();
@@ -127,7 +138,8 @@ public class NavActivity1 extends NavBaseActivity {
                     Intent intent1 = new Intent(NavActivity1.this, UserDrink.class);
                     startActivity(intent1);
                     finish();
-                } else {
+                }
+                else {
                     Log.d("score", "Retrieved the object.");
                     Toast.makeText(getBaseContext(), "User drink 있어", Toast.LENGTH_SHORT).show();
 
@@ -170,9 +182,7 @@ public class NavActivity1 extends NavBaseActivity {
                     temp_1 = (int) object.get("drink");
                     currentdrink = (int) object.get("temp");
 
-                    charimage(currentdrink);
-
-                    temp.setText(String.valueOf(temp_1));
+                    temp.setText(String.valueOf(temp_1) + "°C");
                     drink.setText(String.valueOf(currentdrink));
                     usercalculate.put("currentdrink", currentdrink);
 
@@ -182,23 +192,13 @@ public class NavActivity1 extends NavBaseActivity {
         });
     }
 
-
-//이미지 세팅 함수.
-    void charimage(int drink_1){
-        if (drink_1 < 50){
-            //image1.setImageResource(R.drawable.screaming_android);
-        }
-    }
-
-
     @SuppressWarnings("deprecation")
     private void Notify(String notificationTitle, String notificationMessage) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(1);
 
         @SuppressWarnings("deprecation")
-        Notification notification = new Notification(R.drawable.status3,
-                "새로운 메시지입니다.", System.currentTimeMillis());
+        Notification notification = new Notification(R.drawable.status3, "새로운 메시지입니다.", System.currentTimeMillis());
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
