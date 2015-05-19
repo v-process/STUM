@@ -7,28 +7,37 @@
 
     <ImageView
         android:id="@+id/water_size"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="110dp"
         android:layout_centerHorizontal = "true"
-        android:background="@android:color/white"/>
+        />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="20dp"
 
+    >
     <TextView
         android:id="@+id/slash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:textSize="20dp"
-        android:text = "/"
-        android:layout_below="@+id/water_size"
+        android:textSize="25dp"
+        android:text = " / "
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/drink_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:text="마신물"
-        android:layout_marginRight="20dp"
         android:layout_alignTop="@+id/slash"
         android:layout_toLeftOf="@+id/slash"
         android:layout_toStartOf="@+id/slash" />
@@ -38,21 +47,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="목표"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
+        android:textSize="25dp"
         android:layout_alignTop="@+id/slash"
         android:layout_toRightOf="@+id/slash"
         android:layout_toEndOf="@+id/slash" />
 
+    <TextView
+        android:id="@+id/ml"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ml"
+        android:textSize="25dp"
+        android:layout_alignTop="@+id/drink_view2"
+        android:layout_toRightOf="@+id/drink_view2"
+        android:layout_toEndOf="@+id/drink_view2" />
+
+</RelativeLayout>
     <TextView
         android:id="@+id/temp_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="25dp"
         android:text="온도"
-        android:layout_below="@+id/water_size"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="40dp"
 
         />
 

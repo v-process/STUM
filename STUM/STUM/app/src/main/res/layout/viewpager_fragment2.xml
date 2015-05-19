@@ -5,27 +5,14 @@
     tools:context="com.androidhuman.example.navigationdrawer.basicfragments.app.ImageFragment"
     android:background="@drawable/main_background">
 
-    <ImageView
-        android:id="@+id/iv_fragment_image"
-        android:scaleType="center"
-        android:src="@drawable/ic_launcher"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
     <Button
         android:layout_width="200dp"
         android:layout_height="40dp"
         android:text="이미지 프레그 먼트"/>
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="2000dp">
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:paddingTop="1000dp"
-            android:text="스크롤뷰"/>
-
-
-        </ScrollView>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="성공"
+        android:layout_gravity="center" />
 </FrameLayout>

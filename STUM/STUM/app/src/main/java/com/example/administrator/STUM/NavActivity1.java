@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -122,7 +123,10 @@ public class NavActivity1 extends NavBaseActivity {
     protected Dialog onCreateDialog(int id) {
         switch(id) {
             case DLG_WEIGHT:
-                return createExampleDialog();
+                Intent intent1 = new Intent(this, UserDrink.class);
+                startActivity(intent1);
+                finish();
+                //return createExampleDialog();
             default:
                 return null;
         }

@@ -118,15 +118,16 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
                     Log.d("score", "The getFirst request failed.");
-                    Toast.makeText(ViewPagerFragment1.this.getActivity(), "calculate 테이블 없네", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ViewPagerFragment1.this.getActivity(), "calculate 테이블 없네", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Log.d("score", "Retrieved the object.");
-                    Toast.makeText(ViewPagerFragment1.this.getActivity(), "calculate 테이블 있네", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ViewPagerFragment1.this.getActivity(), "calculate 테이블 있네", Toast.LENGTH_SHORT).show();
 
                     int target = (int) object.get("userdrink");
                     int current = (int) object.get("currentdrink");
-                    drink2.setText(String.valueOf(userdrink) + "ml");
+                    String ml = String.valueOf(userdrink);
+                    drink2.setText(ml);
                     divide(target , current);
                 }
             }
@@ -160,14 +161,14 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
                     Log.d("score", "The getFirst request failed.");
-                    Toast.makeText(ViewPagerFragment1.this.getActivity(), "User drink 없음", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ViewPagerFragment1.this.getActivity(), "User drink 없음", Toast.LENGTH_SHORT).show();
                     Intent intent1 = new Intent(getActivity(), UserDrink.class);
                     startActivity(intent1);
                     getActivity().finish();
                 }
                 else {
                     Log.d("score", "Retrieved the object.");
-                    Toast.makeText(ViewPagerFragment1.this.getActivity(), "User drink 있어", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(ViewPagerFragment1.this.getActivity(), "User drink 있어", Toast.LENGTH_SHORT).show();
 
                     userdrink = (int) object.get("Drink");
 
@@ -195,11 +196,11 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
                     Log.d("score", "The getFirst request failed.");
-                    Toast.makeText(ViewPagerFragment1.this.getActivity(), "온도와 마신물 없나바", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ViewPagerFragment1.this.getActivity(), "온도와 마신물 없나바", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Log.d("score", "Retrieved the object.");
-                    Toast.makeText(ViewPagerFragment1.this.getActivity(), "물양이랑 온도 있나바 : ", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(ViewPagerFragment1.this.getActivity(), "물양이랑 온도 있나바 : ", Toast.LENGTH_SHORT).show();
 
                     int temp_1;
                     temp_1 = (int) object.get("drink");
