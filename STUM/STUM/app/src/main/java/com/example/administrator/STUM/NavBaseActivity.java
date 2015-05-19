@@ -202,11 +202,11 @@ public class NavBaseActivity extends ActionBarActivity {
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
                     Log.d("score", "The getFirst request failed.");
-                    Toast.makeText(getBaseContext(), "없나바", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getBaseContext(), "없나바", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Log.d("score", "Retrieved the object.");
-                    Toast.makeText(getBaseContext(), "그래도 있나바 : ", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getBaseContext(), "그래도 있나바 : ", Toast.LENGTH_SHORT).show();
                     fileObject = (ParseFile) object.get("profileimage");
                     fileObject.getDataInBackground(new GetDataCallback() {
                         @Override

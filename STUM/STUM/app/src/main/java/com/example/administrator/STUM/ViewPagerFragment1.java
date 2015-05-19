@@ -33,6 +33,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Administrator on 2015-03-25.
@@ -65,6 +67,10 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
             R.drawable.water5, R.drawable.water6, R.drawable.water7,
             R.drawable.water8, R.drawable.water9, R.drawable.water10};
 
+    private TimerTask mTask;
+    private Timer mTimer;
+
+
     public static ViewPagerFragment1 newInstance() {
         ViewPagerFragment1 fragment = new ViewPagerFragment1();
         return fragment;
@@ -93,15 +99,30 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
         Button notificationButton = (Button) v.findViewById(R.id.notification_btn);
         notificationButton.setOnClickListener(this);
 
-        //현재 물의 온도 및 마신양 가져오는 함수 호출.
-        getuserdata();
-        //사용자 별 마실 목표 가져오기
-        getuserdrink();
-        //마신물과 목표 한번에 가져오기
-        Calculate();
+
+
+        mTask = new TimerTask() {
+            @Override
+            public void run() {
+                //현재 물의 온도 및 마신양 가져오는 함수 호출.
+                getuserdata();
+                //사용자 별 마실 목표 가져오기
+                getuserdrink();
+                //마신물과 목표 한번에 가져오기
+                Calculate();
+            }
+        };
+
+        mTimer = new Timer();
+
+        mTimer.schedule(mTask, 0, 3000);//0초 후에 Task를 실행하고 3초마다 반복 해라.
+
+
         // Inflate the layout for this fragment
         return v;
     }
+
+
 
     @Override
     public void onClick(View v) {
