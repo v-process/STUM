@@ -83,10 +83,10 @@ public class ChartTemp extends Fragment {
                     for (int i=0; i<drinkList.size(); i++) {
                         ParseObject course = drinkList.get(i);
 
-                        int date = course.getInt("date");
+                        int date = course.getInt("day");
                         Number temp = course.getNumber("watertemp");
 
-                        arrayDate.add(String.valueOf(date));
+                        arrayDate.add(String.valueOf(date) + "일" );
                         arrayTemp.add(new Entry(temp.floatValue(), i));
                     }
                 }

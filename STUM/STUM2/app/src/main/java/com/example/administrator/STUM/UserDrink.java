@@ -71,7 +71,7 @@ public class UserDrink extends ActionBarActivity {
         DrinkValues.saveInBackground();
         Toast.makeText(UserDrink.this, "당신의 하루 물권장량은" + water_size_result +"ml 입니다.", Toast.LENGTH_SHORT).show();
 
-        Intent intent1 = new Intent(this, NavActivity1.class);
+        Intent intent1 = new Intent(this, BluetoothMainActivity.class);
         startActivity(intent1);
         finish();
 

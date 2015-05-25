@@ -50,11 +50,6 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
     ImageView image2;
     ViewPager viewPager;
 
-    int userdrink;
-    int currentdrink;
-    int current;
-    int total;
-
     private static final String TAG = "NavActivity1";
     private static final int DLG_WEIGHT = 0;
     private static final int TEXT_ID = 0;
@@ -98,13 +93,28 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
         //노티피케이션 버튼
         Button notificationButton = (Button) v.findViewById(R.id.notification_btn);
         notificationButton.setOnClickListener(this);
-
-
-
+//새로고침버트
+        Button refreshButton = (Button) v.findViewById(R.id.refresh_btn);
+        refreshButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                //현재 물의 온도 및 마신양 가져오는 함수 호출.
+                getuserdata();
+                //사용자 별 마실 목표 가져오기
+                getuserdrink();
+                //마신물과 목표 한번에 가져오기
+                Calculate();
+            }
+        });
+        //현재 물의 온도 및 마신양 가져오는 함수 호출.
+        getuserdata();
+        //사용자 별 마실 목표 가져오기
+        getuserdrink();
+        //마신물과 목표 한번에 가져오기
+        Calculate();
+/*
         mTask = new TimerTask() {
             @Override
             public void run() {
-
                 //현재 물의 온도 및 마신양 가져오는 함수 호출.
                 getuserdata();
                 //사용자 별 마실 목표 가져오기
@@ -113,10 +123,9 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
                 Calculate();
             }
         };
-
         mTimer = new Timer();
-
-        mTimer.schedule(mTask, 1000, 3000);//0초 후에 Task를 실행하고 3초마다 반복 해라.
+        mTimer.schedule(mTask, 1500, 3000);//0초 후에 Task를 실행하고 3초마다 반복 해라.
+        */
 
 
         // Inflate the layout for this fragment
@@ -139,18 +148,20 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
-                    Log.d("score", "The getFirst request failed.");
+                    //Log.d("score", "The getFirst request failed.");
                     //Toast.makeText(ViewPagerFragment1.this.getActivity(), "calculate 테이블 없네", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Log.d("score", "Retrieved the object.");
+                    //Log.d("score", "Retrieved the object.");
                     //Toast.makeText(ViewPagerFragment1.this.getActivity(), "calculate 테이블 있네", Toast.LENGTH_SHORT).show();
-                    int target = (int) object.get("userdrink");
-                    int currentwater = (int) object.get("currentdrink");
+                    int currentdrinkwater;
+                    int target;
+                    target = (int) object.get("userdrink");
+                    currentdrinkwater = (int) object.get("currentdrink");
 
-                    String ml = String.valueOf(userdrink);
+                    String ml = String.valueOf(target);
                     drink2.setText(ml);
-                    divide(target, currentwater);
+                    divide(target, currentdrinkwater);
                 }
             }
         });
@@ -191,7 +202,7 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
                 else {
                     Log.d("score", "Retrieved the object.");
                    // Toast.makeText(ViewPagerFragment1.this.getActivity(), "User drink 있어", Toast.LENGTH_SHORT).show();
-
+                    int userdrink;
                     userdrink = (int) object.get("Drink");
 
                     drink2.setText(String.valueOf(userdrink));
@@ -229,11 +240,12 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
                     temp_1 = (double) object.get("watertemp");
                     drink_1 = (int) object.get("watervolume");
 
+                    usercalculate.put("currentdrink", drink_1);
+                    usercalculate.saveInBackground();
+
                     temp.setText(String.valueOf(temp_1) + "°C");
                     drink.setText(String.valueOf(drink_1));
-                    usercalculate.put("currentdrink", drink_1);
 
-                    usercalculate.saveInBackground();
                 }
             }
         });

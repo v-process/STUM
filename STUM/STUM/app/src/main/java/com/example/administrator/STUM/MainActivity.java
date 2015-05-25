@@ -13,6 +13,8 @@ import com.parse.ParseUser;
 public class MainActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         NotificationManager nm =
                 (NotificationManager)getSystemService(NOTIFICATION_SERVICE);

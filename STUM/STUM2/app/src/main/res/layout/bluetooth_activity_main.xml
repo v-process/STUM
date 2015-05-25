@@ -1,0 +1,60 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/text_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <ToggleButton
+        android:id="@+id/bt_onoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="블루투스 켜기"
+        android:textOff="꺼짐"
+        android:textOn="켜짐"
+        android:layout_marginTop="10dp"
+        />
+    <Button
+        android:id="@+id/connect_device_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기기연결"
+        android:layout_marginTop="100dp"
+        />
+
+    <Button
+        android:id="@+id/show_mydevice_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내장치보여주기"
+        android:layout_marginTop="150dp"
+        />
+
+
+    <!-- status bar : display connection info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="26dip"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        style="@style/AppTheme.ConnectionInfoContainer" >
+        <ImageView
+            android:id="@+id/status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:layout_margin="3dip"
+            />
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dip"
+            android:layout_margin="3dip"
+            style="@style/AppTheme.ConnectionInfoText" />
+    </LinearLayout>
+
+</FrameLayout>

@@ -65,5 +65,23 @@
     <string name="title_activity_animation">Animation</string>
     <string name="title_activity_sprite_view">SpriteView</string>
 
+
+    <!--  Bluetooth -->
+    <string name="bt_title">Bluetooth</string>
+
+    <string name="bt_state_init">initializing</string>
+    <string name="bt_state_wait">waiting.. (select a device manually)</string>
+    <string name="bt_state_connect">connecting</string>
+    <string name="bt_state_connected">connected</string>
+    <string name="bt_state_error">error</string>
+
+    <string name="bt_cmd_sending_error">Transaction failed</string>
+
+    <!--  DeviceListActivity -->
+
+
+    <!-- Options Menu -->
+    <string name="connect">Connect\na device</string>
+
 </resources>
 

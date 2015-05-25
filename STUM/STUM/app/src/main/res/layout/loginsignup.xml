@@ -4,8 +4,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:padding="10dip"
-    android:background="@drawable/background"
+    android:background="#3852A4"
     >
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/mark"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"/>
 
     <RelativeLayout
         android:layout_width="fill_parent"

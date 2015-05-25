@@ -86,7 +86,7 @@ public class ChartVolume extends Fragment {
                         Number date = course.getNumber("day");
                         Number vol = course.getNumber("watervolume");
 
-                        arrayDate.add(String.valueOf(date));
+                        arrayDate.add(String.valueOf(date)+ "일");
                         arrayDrink.add(new Entry(vol.floatValue(), i));
                     }
                 }

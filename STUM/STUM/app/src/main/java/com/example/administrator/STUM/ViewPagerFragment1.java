@@ -50,11 +50,6 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
     ImageView image2;
     ViewPager viewPager;
 
-    int userdrink;
-    int currentdrink;
-    int current;
-    int total;
-
     private static final String TAG = "NavActivity1";
     private static final int DLG_WEIGHT = 0;
     private static final int TEXT_ID = 0;
@@ -62,10 +57,14 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
 
     ParseObject usercalculate = new ParseObject("Calculate");
     ImageView imageview;
+    ImageView imageview2;
     int imageArray[] = {R.drawable.water0, R.drawable.water1,
             R.drawable.water2, R.drawable.water3, R.drawable.water4,
             R.drawable.water5, R.drawable.water6, R.drawable.water7,
             R.drawable.water8, R.drawable.water9, R.drawable.water10};
+
+    int imageArray2[] = {R.drawable.circle_red, R.drawable.circle_yellow,
+            R.drawable.circle_sky};
 
     private TimerTask mTask;
     private Timer mTimer;
@@ -94,13 +93,30 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
         drink = (TextView) v.findViewById(R.id.drink_view);
         drink2 = (TextView) v.findViewById(R.id.drink_view2);
         imageview = (ImageView) v.findViewById(R.id.water_size);
+        imageview2 = (ImageView) v.findViewById(R.id.temp_image);
 
         //노티피케이션 버튼
         Button notificationButton = (Button) v.findViewById(R.id.notification_btn);
         notificationButton.setOnClickListener(this);
-
-
-
+//새로고침버트
+        Button refreshButton = (Button) v.findViewById(R.id.refresh_btn);
+        refreshButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                //현재 물의 온도 및 마신양 가져오는 함수 호출.
+                getuserdata();
+                //사용자 별 마실 목표 가져오기
+                getuserdrink();
+                //마신물과 목표 한번에 가져오기
+                Calculate();
+            }
+        });
+        //현재 물의 온도 및 마신양 가져오는 함수 호출.
+        getuserdata();
+        //사용자 별 마실 목표 가져오기
+        getuserdrink();
+        //마신물과 목표 한번에 가져오기
+        Calculate();
+/*시간에 따라 업데이트 하기(TimeTask)
         mTask = new TimerTask() {
             @Override
             public void run() {
@@ -112,10 +128,9 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
                 Calculate();
             }
         };
-
         mTimer = new Timer();
-
         mTimer.schedule(mTask, 0, 3000);//0초 후에 Task를 실행하고 3초마다 반복 해라.
+        */
 
 
         // Inflate the layout for this fragment
@@ -138,29 +153,43 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (object == null) {
-                    Log.d("score", "The getFirst request failed.");
+                    //Log.d("score", "The getFirst request failed.");
                     //Toast.makeText(ViewPagerFragment1.this.getActivity(), "calculate 테이블 없네", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Log.d("score", "Retrieved the object.");
+                    //Log.d("score", "Retrieved the object.");
                     //Toast.makeText(ViewPagerFragment1.this.getActivity(), "calculate 테이블 있네", Toast.LENGTH_SHORT).show();
+                    int currentdrinkwater;
+                    int target;
+                    target = (int) object.get("userdrink");
+                    currentdrinkwater = (int) object.get("currentdrink");
 
-                    int target = (int) object.get("userdrink");
-                    int current = (int) object.get("currentdrink");
-                    String ml = String.valueOf(userdrink);
+                    String ml = String.valueOf(target);
                     drink2.setText(ml);
-                    divide(target , current);
+                    divide(target, currentdrinkwater);
                 }
             }
         });
     }
+//물의 온도에 따른 이미지 변경
+    void tempimagechange(double temp_1){
+        if(temp_1 >= 95){//물온도가 95도 이상일때
+            imageview2.setImageResource(imageArray2[0]);
+        }
+        else if(temp_1 <= 7 ){//물의 온도가 7도 이하일때
+            imageview2.setImageResource(imageArray2[2]);
+        }
+        else{
+            imageview2.setImageResource(imageArray2[1]);
+        }
 
+    }
 
     //물양 이미지 지정 함수
     void divide(int target, int current) {
         if(current >= target) {
             imageview.setImageResource(imageArray[10]);
-            Notify("오늘의 마실물 달성", "축하합니다.");
+//            Notify("오늘의 마실물 달성", "축하합니다.");
 
         }
         else {
@@ -190,7 +219,7 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
                 else {
                     Log.d("score", "Retrieved the object.");
                    // Toast.makeText(ViewPagerFragment1.this.getActivity(), "User drink 있어", Toast.LENGTH_SHORT).show();
-
+                    int userdrink;
                     userdrink = (int) object.get("Drink");
 
                     drink2.setText(String.valueOf(userdrink));
@@ -208,7 +237,7 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
     void getuserdata(){
         ParseUser user = ParseUser.getCurrentUser();
         //서버에서 이미지 받아오는 곳.
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("ChartTest");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("dataTestMH");
         // query.whereEqualTo("User", user);
         // query.orderByAscending("createdAt");
 
@@ -223,15 +252,17 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
                     Log.d("score", "Retrieved the object.");
                     //Toast.makeText(ViewPagerFragment1.this.getActivity(), "물양이랑 온도 있나바 : ", Toast.LENGTH_SHORT).show();
 
-                    int temp_1;
-                    temp_1 = (int) object.get("drink");
-                    currentdrink = (int) object.get("temp");
+                    double temp_1;
+                    int drink_1;
+                    temp_1 = (double) object.get("watertemp");
+                    drink_1 = (int) object.get("watervolume");
+                    tempimagechange(temp_1);
+                    usercalculate.put("currentdrink", drink_1);
+                    usercalculate.saveInBackground();
 
                     temp.setText(String.valueOf(temp_1) + "°C");
-                    drink.setText(String.valueOf(currentdrink));
-                    usercalculate.put("currentdrink", currentdrink);
+                    drink.setText(String.valueOf(drink_1));
 
-                    usercalculate.saveInBackground();
                 }
             }
         });
@@ -245,8 +276,10 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
 
         @SuppressWarnings("deprecation")
         Notification notification = new Notification(R.drawable.status3, "새로운 메시지입니다.", System.currentTimeMillis());
-
+        //notification.vibrate = new long[]{100, 200, 100, 500};
+notification.defaults |= Notification.DEFAULT_VIBRATE;
         Intent notificationIntent = new Intent(getActivity(), MainActivity.class);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0,
                 notificationIntent, 0);
 

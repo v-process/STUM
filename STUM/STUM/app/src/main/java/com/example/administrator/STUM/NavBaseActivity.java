@@ -61,6 +61,10 @@ public class NavBaseActivity extends ActionBarActivity {
     ParseFile fileObject;
     ParseObject ob;
     TextView txt;
+
+    int w;
+    int h;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,13 +103,32 @@ public class NavBaseActivity extends ActionBarActivity {
         {
             if(resultCode== Activity.RESULT_OK)
             {
+
                 try {
                     //Uri에서 이미지 이름을 얻어온다.
 
                     String name_Str = getImageNameToUri(data.getData());
 
+
+
                     //이미지 데이터를 비트맵으로 받아온다.
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+/*
+                    if(image_bitmap.getWidth()==4160){
+                        w = image_bitmap.getWidth() / 4;
+                        h = image_bitmap.getHeight() / 4;
+                    }
+                    else{
+                        w =  image_bitmap.getWidth();
+                        h =  image_bitmap.getHeight();
+                    }
+*/
+                    w =  image_bitmap.getWidth();
+                    h =  image_bitmap.getHeight();
+
+                    image_bitmap = Bitmap.createScaledBitmap(image_bitmap, w, h, false);
+
+                   // image_bitmap = Bitmap.createScaledBitmap(image_bitmap, w, h, false);
                     //ImageView image = (ImageView) findViewById(R.id.profileimage);
 
                     //배치해놓은 ImageView에 set

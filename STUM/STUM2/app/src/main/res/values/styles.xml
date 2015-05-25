@@ -15,4 +15,24 @@
         <item name="android:windowActionModeOverlay">true</item>
     </style>
 
+    <!--sandkdnsakndsksndakalsdndlkadsnklads-->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+
+
+    <style name="AppTheme.ConnectionInfoContainer">
+        <item name="android:background">@color/gray3</item>
+    </style>
+    <style name="AppTheme.ConnectionInfoText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/graye</item>
+    </style>
+
 </resources>

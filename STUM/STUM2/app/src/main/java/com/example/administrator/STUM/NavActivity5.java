@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.administrator.STUM.BLUETOOTH.BluetoothActivity;
 import com.parse.ParseUser;
 
 //네비게이션 프레그먼트2
@@ -30,7 +29,7 @@ public class NavActivity5 extends NavBaseActivity implements AdapterView.OnItemC
     //리스트 아이템 클릭 포지션 0과 1에서 선택에 따른 엑엑티비티구현.
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         if (position == 0) {
-            Intent intent0 = new Intent(NavActivity5.this, BluetoothActivity.class);
+            Intent intent0 = new Intent(NavActivity5.this, BluetoothMainActivity.class);
             startActivity(intent0);
         }
 

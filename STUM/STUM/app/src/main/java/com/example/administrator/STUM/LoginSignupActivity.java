@@ -55,13 +55,14 @@ public class LoginSignupActivity extends Activity {
                                     // If user exist and authenticated, send user to Welcome.class
                                     Intent intent = new Intent(
                                             LoginSignupActivity.this,
-                                            NavActivity1.class);
+                                            BluetoothMainActivity.class);
                                     startActivity(intent);
+                                    /*
                                     String struser = user.getUsername().toString();
-
                                     Toast.makeText(getApplicationContext(),
                                             "안녕하세요 "+ struser +" 님",
                                             Toast.LENGTH_LONG).show();
+                                            */
                                     finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(),
