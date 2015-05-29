@@ -1,0 +1,120 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DDDDDC">
+        <ImageView
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/userdrinkactionbar"
+            />
+
+        <ImageView
+            android:id="@+id/userwater"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_margin="15dp"
+            android:layout_below="@+id/title1"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/userdrinkbox1"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/userdrinkbox2"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@+id/userwater"
+            android:id="@+id/imageView3" />
+
+    <EditText
+        android:id="@+id/weight_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textSize="17dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:textColorLink="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/userwater"
+        android:layout_marginLeft="260dp"
+         />
+
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/userdrinkbtn2"
+        android:layout_marginRight="50dp"
+        android:layout_alignTop="@+id/button1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/button1"
+        />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="540dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/userdrinkbtn1"
+            android:onClick="button1func"
+            />
+    <CheckBox
+        android:id="@+id/sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="300dp"
+        android:button="@drawable/checkbox"
+        android:layout_below="@+id/weight_input"
+
+    />
+
+    <CheckBox
+        android:id="@+id/weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:button="@drawable/checkbox"
+        android:layout_below="@+id/sports"
+        android:layout_alignLeft="@+id/sports"
+        android:layout_alignStart="@+id/sports" />
+    />
+
+    <TextView
+        android:id="@+id/water_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="     "
+        android:textSize="25dp"
+        android:textColor="#2A2A2A"
+        android:layout_marginTop="300dp"
+        android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ml"
+            android:textSize="25dp"
+            android:textColor="#2A2A2A"
+            android:layout_alignTop="@+id/water_size"
+            android:layout_toLeftOf="@+id/weather"
+            android:layout_toStartOf="@+id/weather" />
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
