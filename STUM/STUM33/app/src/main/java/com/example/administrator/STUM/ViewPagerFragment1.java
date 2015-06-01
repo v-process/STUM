@@ -1,9 +1,11 @@
 package com.example.administrator.STUM;
 
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -62,6 +65,7 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
 
     UserDataAnalysis userDataAnalysis = new UserDataAnalysis();
 
+    AlarmManager am1;
 
     public static ViewPagerFragment1 newInstance() {
         ViewPagerFragment1 fragment = new ViewPagerFragment1();
@@ -87,9 +91,13 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
         imageview = (ImageView) v.findViewById(R.id.water_size);
         imageview2 = (ImageView) v.findViewById(R.id.temp_image);
 
-        //노티피케이션 버튼
-        Button notificationButton = (Button) v.findViewById(R.id.notification_btn);
-        notificationButton.setOnClickListener(this);
+
+        am1 = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
+        setOneTimeAlarm();
+        setOneTimeAlarm2();
+        setOneTimeAlarm3();
+        setOneTimeAlarm4();
+
 
         //새로고침버튼
         Button refreshButton = (Button) v.findViewById(R.id.refresh_btn);
@@ -101,41 +109,80 @@ public class ViewPagerFragment1 extends Fragment implements View.OnClickListener
         getuserdrink();
         //마신물과 목표 한번에 가져오기
         Calculate();
-
-        /*시간에 따라 업데이트 하기(TimeTask)
-        mTask = new TimerTask() {
-            @Override
-            public void run() {
-                //현재 물의 온도 및 마신양 가져오는 함수 호출.
-                getuserdata();
-                //사용자 별 마실 목표 가져오기
-                getuserdrink();
-                //마신물과 목표 한번에 가져오기
-                Calculate();
-            }
-        };
-        mTimer = new Timer();
-        mTimer.schedule(mTask, 0, 3000);//0초 후에 Task를 실행하고 3초마다 반복 해라.
-        */
         return v;
     }
 
+    public void setOneTimeAlarm() {
+        Intent intent = new Intent(getActivity(), TimeAlarm.class);
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(getActivity(), 1,intent, PendingIntent.FLAG_UPDATE_CURRENT );
+
+        Calendar calendar1 = Calendar.getInstance(); //7시
+        calendar1.set(Calendar.HOUR_OF_DAY, 22);
+        calendar1.set(Calendar.MINUTE, 48);
+        calendar1.set(Calendar.SECOND, 0);
+        long current_time = System.currentTimeMillis();
+        long limit_time1 = calendar1.getTimeInMillis();
+        if (current_time <= limit_time1){
+            am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar1.getTimeInMillis(), 1000*60*60*4,  pendingIntent1);
+        }
+
+    }
+    public void setOneTimeAlarm2() {
+        Intent intent2 = new Intent(getActivity(), TimeAlarm.class);
+        PendingIntent pendingIntent2 = PendingIntent.getBroadcast(getActivity(), 2,intent2, PendingIntent.FLAG_UPDATE_CURRENT );
+
+        Calendar calendar2 = Calendar.getInstance(); //7시
+        calendar2.set(Calendar.HOUR_OF_DAY, 22);
+        calendar2.set(Calendar.MINUTE, 49);
+        calendar2.set(Calendar.SECOND, 0);
+        long current_time = System.currentTimeMillis();
+        long limit_time2 = calendar2.getTimeInMillis();
+        if (current_time <= limit_time2){
+            am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar2.getTimeInMillis(), 1000*60*60*4,  pendingIntent2);
+        }
+
+    }
+
+    public void setOneTimeAlarm3() {
+        Intent intent = new Intent(getActivity(), TimeAlarm.class);
+        PendingIntent pendingIntent3 = PendingIntent.getBroadcast(getActivity(), 3,intent, PendingIntent.FLAG_UPDATE_CURRENT );
+
+        Calendar calendar3 = Calendar.getInstance(); //7시
+        calendar3.set(Calendar.HOUR_OF_DAY, 22);
+        calendar3.set(Calendar.MINUTE, 50);
+        calendar3.set(Calendar.SECOND, 0);
+        long current_time = System.currentTimeMillis();
+        long limit_time3 = calendar3.getTimeInMillis();
+        if (current_time <= limit_time3){
+            am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar3.getTimeInMillis(), 1000*60*60*4,  pendingIntent3);
+        }
+
+    }
+    public void setOneTimeAlarm4() {
+        Intent intent = new Intent(getActivity(), TimeAlarm.class);
+        PendingIntent pendingIntent4 = PendingIntent.getBroadcast(getActivity(), 4,intent, PendingIntent.FLAG_UPDATE_CURRENT );
+
+        Calendar calendar4 = Calendar.getInstance(); //7시
+        calendar4.set(Calendar.HOUR_OF_DAY, 22);
+        calendar4.set(Calendar.MINUTE, 51);
+        calendar4.set(Calendar.SECOND, 0);
+        long current_time = System.currentTimeMillis();
+        long limit_time4 = calendar4.getTimeInMillis();
+        if (current_time <= limit_time4){
+            am1.setRepeating(AlarmManager.RTC_WAKEUP, calendar4.getTimeInMillis(), 1000*60*60*4,  pendingIntent4);
+        }
+
+    }
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.refresh_btn:
+
                 //현재 물의 온도 및 마신양 가져오는 함수 호출.
                 getuserdata();
                 //사용자 별 마실 목표 가져오기
                 getuserdrink();
                 //마신물과 목표 한번에 가져오기
                 Calculate();
-                break;
-            case R.id.notification_btn:
-                Notify("Title: 안녕하세요", "통지 메세지입니다.");
 
-                break;
-        }
     }
 
     void Calculate() {

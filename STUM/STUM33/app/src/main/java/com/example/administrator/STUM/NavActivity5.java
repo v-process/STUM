@@ -1,5 +1,7 @@
 package com.example.administrator.STUM;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -35,6 +37,20 @@ public class NavActivity5 extends NavBaseActivity implements AdapterView.OnItemC
 
         else if (position == 1) {
             ParseUser.logOut();
+            Intent intent = new Intent(this, TimeAlarm.class);
+            PendingIntent sender1 = PendingIntent.getBroadcast(this, 1, intent, 0);
+            PendingIntent sender2 = PendingIntent.getBroadcast(this, 2, intent, 0);
+            PendingIntent sender3 = PendingIntent.getBroadcast(this, 3, intent, 0);
+            PendingIntent sender4 = PendingIntent.getBroadcast(this, 4, intent, 0);
+
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.cancel(sender1);
+            alarmManager.cancel(sender2);
+            alarmManager.cancel(sender3);
+            alarmManager.cancel(sender4);
+
+
             Intent intent1 = new Intent(NavActivity5.this, LoginSignupActivity.class);
             startActivity(intent1);
             finish();
