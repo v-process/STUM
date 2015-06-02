@@ -1,0 +1,109 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" >
+
+    <TextView
+        android:text="체중을 자주 갱신해주세요."
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:text="몸무게 : "
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_below="@id/message"
+        android:layout_toLeftOf="@id/weight_input"
+        android:layout_marginRight="8dp"/>
+
+    <EditText
+        android:id="@+id/weight_input"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="12dp"
+        android:singleLine="true"
+        android:inputType="number"
+        android:maxLength="3"
+        android:layout_below="@id/message"
+        android:layout_centerHorizontal="true"
+        android:theme="@style/MyEditText"/>
+
+    <TextView
+        android:text="Kg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_below="@id/message"
+        android:layout_toRightOf="@id/weight_input"
+        android:layout_marginLeft="5dp"/>
+
+
+    <CheckBox
+        android:id="@+id/sports"
+        android:button="@drawable/checkbox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="   스포츠"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/weight"
+        android:layout_toLeftOf="@+id/blank"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/blank"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weight"
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"/>
+
+    <CheckBox
+        android:id="@+id/weather"
+        android:button="@drawable/checkbox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="   더운 날"
+        android:layout_marginTop="32dp"
+        android:layout_below="@+id/weight"
+        android:layout_toRightOf="@id/blank"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="136dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:text="취소"
+        android:layout_toLeftOf="@+id/blank2"
+        android:background="@color/myBlue"
+        android:layout_below="@id/weather"/>
+
+    <TextView
+        android:id="@+id/blank2"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weather"
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/change"
+        android:layout_width="136dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/blank2"
+        android:text="변경"
+        android:background="@color/myBlue"
+        android:layout_below="@id/weather"/>
+
+</RelativeLayout>

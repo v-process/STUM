@@ -1,0 +1,121 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DDDDDC">
+        <ImageView
+            android:id="@+id/title1"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/userdrinkactionbar"
+            />
+
+        <ImageView
+            android:id="@+id/userwater"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/title1"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/userdrinkbox1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:background="@drawable/userdrinkbox2"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_below="@+id/userwater"
+            android:id="@+id/imageView3" />
+
+    <EditText
+        android:id="@+id/weight_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textSize="17dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:textColorLink="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/userwater"
+        android:layout_marginLeft="260dp" />
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:background="@drawable/userdrinkbtn2"
+            android:layout_marginLeft="200dp"
+            android:layout_marginBottom="40dp"
+            android:layout_alignParentBottom="true"
+             />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="40dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/userdrinkbtn1"
+            android:onClick="button1func"
+            />
+        <CheckBox
+            android:id="@+id/sports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:button="@drawable/checkbox"
+            android:layout_marginTop="403dp"
+
+
+        />
+
+        <CheckBox
+            android:id="@+id/weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:button="@drawable/checkbox"
+            android:layout_marginTop="452dp"
+
+
+        />
+
+        <TextView
+            android:id="@+id/water_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="     "
+            android:textSize="25dp"
+            android:textColor="#2A2A2A"
+            android:layout_marginTop="285dp"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ml"
+            android:textSize="25dp"
+            android:textColor="#2A2A2A"
+            android:layout_marginTop="285dp"
+            android:layout_marginLeft="270dp"
+            />
+    </RelativeLayout>
+</android.support.v4.widget.DrawerLayout>
