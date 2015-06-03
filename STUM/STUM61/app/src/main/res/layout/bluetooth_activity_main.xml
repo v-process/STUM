@@ -1,0 +1,94 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dddddc" >
+
+    <ImageView
+        android:id="@+id/bluetooth_setting"
+        android:layout_width="match_parent"
+        android:layout_height="56.5dp"
+        android:src="@drawable/bluetooth_setting"/>
+
+    <TextView
+        android:id="@+id/text_body"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#ffffff"
+        android:text="      Bluetooth"
+        android:textSize="14dp"
+        android:textColor="#000000"
+        android:gravity="left|center"
+        android:layout_below="@id/bluetooth_setting"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <ToggleButton
+        android:id="@+id/bt_onoff"
+        android:layout_width="63.75dp"
+        android:layout_height="32.25dp"
+        android:background="@drawable/toggle_selector"
+        android:textOff=""
+        android:textOn=""
+        android:layout_marginTop="85dp"
+        android:layout_marginLeft="270dp"/>
+
+    <Button
+        android:id="@+id/connect_device_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="기기 연결"
+        android:background="@color/myBlue"
+        android:layout_below="@id/text_body"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/show_mydevice_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="내 장치 보여주기"
+        android:background="@color/myBlue"
+        android:layout_below="@id/connect_device_button"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp" />
+
+    <Button
+        android:id="@+id/jump"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="건너뛰기"
+        android:background="@color/myBlue"
+        android:layout_below="@id/show_mydevice_button"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp" />
+
+
+
+    <!-- status bar : display connection info -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="26dip"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        style="@style/AppTheme.ConnectionInfoContainer" >
+        <ImageView
+            android:id="@+id/status_title"
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:layout_margin="3dip"
+            />
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="20dip"
+            android:layout_margin="3dip"
+            style="@style/AppTheme.ConnectionInfoText" />
+    </LinearLayout>
+
+</RelativeLayout>
