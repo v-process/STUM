@@ -34,7 +34,8 @@
         </activity>
         <activity
             android:name=".NavActivity3"
-            android:label="정보">
+            android:label="정보"
+            android:largeHeap="true">
         </activity>
         <activity
             android:name=".NavDrawerItem"
@@ -54,7 +55,8 @@
         </activity>
         <activity
             android:name=".NavActivity5"
-            android:label="설정">
+            android:label="설정"
+            android:largeHeap="true">
         </activity>
         <activity android:name=".LoginSignupActivity" >
         </activity>

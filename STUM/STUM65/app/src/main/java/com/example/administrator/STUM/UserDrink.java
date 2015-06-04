@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.Calendar;
+
 
 public class UserDrink extends Activity {
      EditText edit;
@@ -78,6 +80,27 @@ public class UserDrink extends Activity {
         ParseUser user = ParseUser.getCurrentUser();
         DrinkValues.put("User", user);
         DrinkValues.put("Drink", water_size_result);
+
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH);
+        int day = now.get(Calendar.DATE);
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minute = now.get(Calendar.MINUTE);
+
+
+
+        ParseObject DrinkValues2 = new ParseObject("testDrunk3");//파스 오브젝트 생성
+        DrinkValues2.put("User", user);
+        DrinkValues2.put("waterTemp", 0);
+        DrinkValues2.put("drunk", 0);
+        DrinkValues2.put("year", year);
+        DrinkValues2.put("month", month);
+        DrinkValues2.put("day", day);
+        DrinkValues2.put("hour", hour);
+        DrinkValues2.put("min", minute);
+        DrinkValues2.saveInBackground();
+
 
         DrinkValues.saveInBackground();
         Toast.makeText(UserDrink.this, "당신의 하루 물권장량은" + water_size_result +"ml 입니다.", Toast.LENGTH_SHORT).show();

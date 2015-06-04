@@ -361,15 +361,16 @@ public class BluetoothManager {
 
         Log.d("함수확인","CalcDrunkWater들어왔음");
         ///////////////////////////////////////MHS임시 테스트
-/*     ParseObject testDrunk = new ParseObject("testDrunk");
+/*     ParseObject testDrunk = new ParseObject("DrunkTable");
         //유저추가
-        testDrunk.put("year", 20);
-        testDrunk.put("month", 5);
-        testDrunk.put("day", 26);
-        testDrunk.put("hour", 23);
-        testDrunk.put("min", 20);
+        testDrunk.put("User",user);
+        testDrunk.put("year", 2015);
+        testDrunk.put("month", 6);
+        testDrunk.put("day", 3);
+        testDrunk.put("hour", 0);
+        testDrunk.put("min", 0);
         testDrunk.put("drunk", 350);
-        testDrunk.put("watertemp", 40.5);
+        testDrunk.put("watertemp", 20.3);
         testDrunk.saveInBackground();
         Log.d("마신양파스테스트","어디보자..");
 */
@@ -395,7 +396,7 @@ public class BluetoothManager {
                 Log.d("마신거 등록하기", "done들어와짐");
                 //Log.d("쿼리사이즈", String.valueOf(drinkList.size()));
                 //if(drinkList.size()<3) return;//아예 작업후 개체를 삭제했기 때문에 너무 적은 숫자라면 그냥 작업안하는게 나을거같아
-
+                boolean first=true;
                 int drunk_year = 0, year1 = 0, year2 = 0;
                 int drunk_month = 0, month1 = 0, month2 = 0;
                 int drunk_day = 0, day1 = 0, day2 = 0;
@@ -412,64 +413,78 @@ public class BluetoothManager {
                         ParseObject course = drinkList.get(i);
                         String flag = course.getString("drinkflag"); //먼저  플래그를 검사해가면서 D를 찾을거야
 
-                        if (i == 0 && flag.equals("D")) { //쿼리의첫번째가 D면 이전 N을 찾을수 없으므로 그다음 D를 다 무시하고 그다음 N에 대하여 진행하도록한다...
-                            while (drinkList.get(i + 1).getString("drinkflag").equals("D")) {
-                                i++;
-                                course = drinkList.get(i);
-                                flag = course.getString("drinkflag"); //먼저  플래그를 검사해가면서 D를 찾을거야
+                        if ( flag.equals("D")) { //쿼리의첫번째가 D면 이전 N을 찾을수 없으므로 그다음 D를 다 무시하고 그다음 N에 대하여 진행하도록한다...
+                            if(i == 0 ) {
+                                while (drinkList.get(i + 1).getString("drinkflag").equals("D")) {
+                                    if ((i+1) >= 100) break;
+                                    i++;
+                                    course = drinkList.get(i);
+                                    flag = course.getString("drinkflag"); //먼저  플래그를 검사해가면서 D를 찾을거야
+                                }
+                            }else{ //D를 찾았는데 첫번째가아니야 그러면 N을 저장해야지
+
+                                ParseObject ob1 = drinkList.get(i - 1);//이전 N에대한 값을 저장할거다
+                                year1 = ob1.getInt("year");
+                                month1 = ob1.getInt("month");
+                                day1 = ob1.getInt("day");
+                                hour1 = ob1.getInt("hour");
+                                min1 = ob1.getInt("min");
+                                temp1 = ob1.getInt("watertemp");
+                                drunk1 = ob1.getInt("watervolume");
+                                Log.d("D 이전 찾은 애들", year1 + "년 " + month1 + "월 " + day1 + "일 " + hour1 + "시 " + min1 + "분 " + temp1 + "도 " + drunk1 + "ml");
+
+                                while (drinkList.get(i + 1).getString("drinkflag").equals("D")) {
+                                    //i++;
+                                    if ((i+1) >= 100) break;
+                                    i++;
+                                    //다음 플래그도 D면 무시해야하기때문에 다음 플래그가 D면 안저장하고 넘어가준다.
+                                    //course = drinkList.get(i);
+                                    //flag = course.getString("drinkflag"); //먼저  플래그를 검사해가면서 D를 찾을거야
+
+                                }
+
+                                ParseObject ob2 = drinkList.get(i + 1);//D이후 바로나오는 N에대한 값을 저장할거다
+                                year2 = ob2.getInt("year");
+                                month2 = ob2.getInt("month");
+                                day2 = ob2.getInt("day");
+                                hour2 = ob2.getInt("hour");
+                                min2 = ob2.getInt("min");
+                                temp2 = ob2.getInt("watertemp");
+                                drunk2 = ob2.getInt("watervolume");
+                                Log.d("D이후 찾은 애들", year2 + "년 " + month2 + "월 " + day2 + "일 " + hour2 + "시 " + min2 + "분 " + temp2 + "도 " + drunk2 + "ml");
+
+                                drunk_year = year1;
+                                drunk_month = month1;
+                                drunk_day = day1;
+                                drunk_hour = hour1;
+                                drunk_min = min1;
+                                drunk_temp = (temp1 + temp2) / 2;
+                                drunk_volume = drunk2 - drunk1;//1이 최신 2가 이전
+
+                                if (drunk_volume <= 0 || day1 - day2 > 1 || day1 - day2 < -1) {
+                                    Log.d("저장못할값이있나", "이건 그냥 무시해 ");
+                                } else {
+
+                                    ParseObject testDrunk = new ParseObject("testDrunk3");
+                                    if(first==true) {
+                                        Log.d("ㅇ여기가 지금 온도를 표시하는","그런것이다!!!!!!!");
+                                        testDrunk.put("currentflag", "T"); //첫번째 값만 체크해둔다.
+                                        first=false;
+                                    }
+                                    testDrunk.put("User",user);
+                                    testDrunk.put("year", drunk_year);
+                                    testDrunk.put("month", drunk_month);
+                                    testDrunk.put("day", drunk_day);
+                                    testDrunk.put("hour", drunk_hour);
+                                    testDrunk.put("min", drunk_min);
+                                    testDrunk.put("drunk", drunk_volume);
+                                    testDrunk.put("watertemp", drunk_temp);
+                                    testDrunk.saveInBackground();
+                                    Log.d("조건건 파스테스트", "어디보자..");
+                                }
+
                             }
-                        }
-                        if (flag.equals("D")) { //D를 찾으면
-                            ParseObject ob1 = drinkList.get(i - 1);//이전 N에대한 값을 저장할거다
-                            year1 = ob1.getInt("year");
-                            month1 = ob1.getInt("month");
-                            day1 = ob1.getInt("day");
-                            hour1 = ob1.getInt("hour");
-                            min1 = ob1.getInt("min");
-                            temp1 = ob1.getInt("watertemp");
-                            drunk1 = ob1.getInt("watervolume");
-                            Log.d("D 이전 찾은 애들", year1 + "년 " + month1 + "월 " + day1 + "일 " + hour1 + "시 " + min1 + "분 " + temp1 + "도 " + drunk1 + "ml");
-
-                            while (drinkList.get(i + 1).getString("drinkflag").equals("D"))
-                                i++;//다음 플래그도 D면 무시해야하기때문에 다음 플래그가 D면 안저장하고 넘어가준다.
-
-                            ParseObject ob2 = drinkList.get(i + 1);//D이후 바로나오는 N에대한 값을 저장할거다
-                            year2 = ob2.getInt("year");
-                            month2 = ob2.getInt("month");
-                            day2 = ob2.getInt("day");
-                            hour2 = ob2.getInt("hour");
-                            min2 = ob2.getInt("min");
-                            temp2 = ob2.getInt("watertemp");
-                            drunk2 = ob2.getInt("watervolume");
-                            Log.d("D이후 찾은 애들", year2 + "년 " + month2 + "월 " + day2 + "일 " + hour2 + "시 " + min2 + "분 " + temp2 + "도 " + drunk2 + "ml");
-
-                            drunk_year = year1;
-                            drunk_month = month1;
-                            drunk_day = day1;
-                            drunk_hour = hour1;
-                            drunk_min = min1;
-                            drunk_temp = (temp1 + temp2) / 2;
-                            drunk_volume = drunk2 - drunk1;//1이 최신 2가 이전
-
-                            if(drunk_volume<0 || day1-day2>1 || day1-day2<-1 ) {
-                                Log.d("저장못할값이있나","이건 그냥 무시해 ");
-                            }else{
-
-                                ParseObject testDrunk = new ParseObject("testDrunk3");
-                                testDrunk.put("year", drunk_year);
-                                testDrunk.put("month", drunk_month);
-                                testDrunk.put("day", drunk_day);
-                                testDrunk.put("hour", drunk_hour);
-                                testDrunk.put("min", drunk_min);
-                                testDrunk.put("drunk", drunk_volume);
-                                testDrunk.put("watertemp", drunk_temp);
-                                testDrunk.saveInBackground();
-                                Log.d("조건건 파스테스트", "어디보자..");
-                            }
-
-                        } else {
-                            Log.d("포문에서", "플래그가 D가 아님");
-                        }
+                        }else {Log.d("포문에서", "플래그가 D가 아님");}
 
 
                     }//정해준 갯수만큼의 for문 끝

@@ -4,7 +4,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
 //로그인 성공시 리스트뷰가 보여짐
@@ -25,34 +25,15 @@ public class NavActivity3 extends NavBaseActivity {
         navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);//load icons from strings.xml
         set(navMenuTitles,navMenuIcons);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
-
         fragmentManger = new TapFragmentManager(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(fragmentManger);
 
-        viewPager.setOnPageChangeListener(new android.support.v4.view.ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageSelected(int tabPosition) {
-                //actionBar.setSelectedNavigationItem(tabPosition);
-
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
     }
 
 
     // TapFragmentManager Class
-    public class TapFragmentManager extends FragmentPagerAdapter {
+    public class TapFragmentManager extends FragmentStatePagerAdapter {
         public TapFragmentManager(FragmentManager fm) {
             super(fm);
         }
@@ -65,7 +46,7 @@ public class NavActivity3 extends NavBaseActivity {
                 case 2: return ViewPagerFragment5.newInstance();
                 case 3: return ViewPagerFragment6.newInstance();
                 case 4: return ViewPagerFragment7.newInstance();
-                default: return ViewPagerFragment3.newInstance();
+                default: return ViewPagerFragment7.newInstance();
             }
         }
 
@@ -75,9 +56,5 @@ public class NavActivity3 extends NavBaseActivity {
             return 5;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return null;
-        }
     }
 }

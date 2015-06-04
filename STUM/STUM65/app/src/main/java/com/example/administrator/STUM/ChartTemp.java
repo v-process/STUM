@@ -76,9 +76,10 @@ public class ChartTemp extends Fragment {
         Calendar now = Calendar.getInstance();
         int date = now.get(Calendar.DATE);
         int hour = now.get(Calendar.HOUR_OF_DAY);
+
         ParseQuery<ParseObject> query2 = ParseQuery.getQuery("DrunkTable");
         query2.addAscendingOrder("createdAt");
-        //query2.whereEqualTo("User", user);
+        query2.whereEqualTo("User", user);
         query2.whereEqualTo("hour", hour);
 
         query2.setLimit(10);

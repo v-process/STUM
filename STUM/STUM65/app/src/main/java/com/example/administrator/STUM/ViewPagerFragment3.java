@@ -72,10 +72,6 @@ public class ViewPagerFragment3 extends Fragment {
         TextView tt = (TextView) v.findViewById(R.id.water_info1);
         tt.setText(strBuffer);
 
-
-
-
-
         return v;
     }
 

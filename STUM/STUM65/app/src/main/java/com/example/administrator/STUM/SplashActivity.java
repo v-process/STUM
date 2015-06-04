@@ -1,6 +1,7 @@
 package com.example.administrator.STUM;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,10 +9,14 @@ import android.os.Message;
 
 public class SplashActivity extends Activity {
     int SPLASH_TIME=2000;
+    private BluetoothAdapter btAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash); //splash이미지 레이아웃
+
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
+        btAdapter.disable();//끄기
 
         Handler handler = new Handler() {
             @Override

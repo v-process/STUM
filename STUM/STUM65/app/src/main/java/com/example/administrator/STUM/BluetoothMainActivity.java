@@ -40,21 +40,16 @@ public class BluetoothMainActivity extends Activity {
     // Global
     private boolean mStopService = false;//true;   // If you want to stop background service when exit app, set this true.
 
-
     // UI stuff
     private ImageView mImageBT = null;
     private TextView mTextStatus = null;
 
     ToggleButton mBtTb;
 
-
-
     ////////////////////MHS/////////////////////////////////////////////////////////////
     private BluetoothAdapter mhbtAdapter;
     private boolean mBluetoothOn;// 블루 투스 켜져있으면 true 아니면 false
     ////////////////////MHE/////////////////////////////////////////////////////////////
-
-
 
     /*****************************************************
      *
@@ -82,7 +77,6 @@ public class BluetoothMainActivity extends Activity {
         mImageBT.setImageDrawable(getResources().getDrawable(android.R.drawable.presence_invisible));
         mTextStatus = (TextView) findViewById(R.id.status_text);
         mTextStatus.setText(getResources().getString(R.string.bt_state_init));
-
 
 /////////////////////////////////////////MHS  버튼 들과 그에 필요한 작업들...//////////////////////////////////////////////////////
         // BluetoothAdapter 얻기
@@ -133,6 +127,7 @@ public class BluetoothMainActivity extends Activity {
             public void onClick(View v) {
                 //그냥 넘어가는 화면
                 Intent intent = new Intent(BluetoothMainActivity.this, NavActivity1.class);
+                intent.putExtra("passflag",true);
                 startActivity(intent);
                 finish();
             }
@@ -442,13 +437,24 @@ public class BluetoothMainActivity extends Activity {
                     mImageBT.setImageDrawable(getResources().getDrawable(android.R.drawable.presence_busy));
                     break;
 
-                ////////////////////////////////////////////
-                // Handle messages here.
-                ////////////////////////////////////////////
-//         case MESSAGE_xxx:
-//         {
-//            break;
-//         }
+
+                /*
+                case Constants.MESSAGE_GIF_CHANGE:
+                    Log.d("서비스에서 D받고","메인까지왔음");
+                    //mNavActivityHandler.obtainMessage(Constants.MESSAGE_GIF_CHANGE).sendToTarget();
+
+                    //bundle.putString("msg", "gifChange");
+                    ViewPagerFragment2 fragobj = new ViewPagerFragment2();
+                    Bundle bundle=new Bundle();
+                    fragobj.setArguments(bundle);
+
+
+                    finish();
+
+
+                    break;
+
+                    */
 
                 default:
                     break;

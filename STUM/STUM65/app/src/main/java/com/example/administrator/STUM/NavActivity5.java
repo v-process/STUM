@@ -5,8 +5,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -77,26 +75,4 @@ public class NavActivity5 extends NavBaseActivity implements AdapterView.OnItemC
         String struser = currentUser.getUsername().toString();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_two, menu);
-        return true;
-    }
-
-
-    //네비게이션 바 옵션 아이템 번호 가져오기.
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

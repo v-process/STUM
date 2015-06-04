@@ -13,7 +13,7 @@ public class GIFView extends View {
     public Movie mMovie;
     public long movieStart;
 
-    private int gifId = R.drawable.gif11;
+    private int gifId = R.drawable.character0;
 
     public GIFView(Context context) {
         super(context);

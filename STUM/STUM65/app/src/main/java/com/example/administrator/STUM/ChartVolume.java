@@ -83,7 +83,7 @@ public class ChartVolume extends Fragment {
         ParseUser user = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query2 = ParseQuery.getQuery("DrunkTable");
         query2.addAscendingOrder("createdAt");
-        //query2.whereEqualTo("User", user);
+        query2.whereEqualTo("User", user);
         query2.whereEqualTo("hour", hour);
 
         query2.setLimit(10);
@@ -150,7 +150,14 @@ public class ChartVolume extends Fragment {
         set1.setDrawCircleHole(false);
 
         int size = arrayDrink.size();
-        float a = arrayDrink.get(size-1).getVal();
+        float a;
+        if(size ==0) {
+            a=0;
+        }
+        else {
+            a = arrayDrink.get(size-1).getVal();
+        }
+
         String s = Float.toString(a);
         todayWater.setText(s);
 

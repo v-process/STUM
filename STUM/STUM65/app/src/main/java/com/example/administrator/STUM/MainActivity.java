@@ -3,10 +3,8 @@ package com.example.administrator.STUM;
 
 import android.app.Activity;
 import android.app.NotificationManager;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.parse.ParseAnonymousUtils;
@@ -41,7 +39,7 @@ public class MainActivity extends Activity {
                 // Send logged in users to Welcome.class
                 //블루투스가 비활성화면 블투화면으로 보내주고 블투에서 네비로 보내는게 좋을듯.
                 //여기다가 if문 넣어 블투가 비활성화면 블투화면 아니면 네비화면 이렇게 설정하는것으로..
-                BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+               /* BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                 if (mBluetoothAdapter != null) {
                     Log.d("화면전환때 블투아답터을때", "????");
                     if (mBluetoothAdapter.isEnabled() == false) {
@@ -53,13 +51,16 @@ public class MainActivity extends Activity {
                         Intent intent = new Intent(MainActivity.this, NavActivity1.class);
                         startActivity(intent);
 
-                    }
+                    }*/
 
-                    Toast.makeText(getApplicationContext(),
-                            "안녕하세요 " + struser + " 님",
-                            Toast.LENGTH_LONG).show();
-                    finish();
-                }
+                Intent intent = new Intent(MainActivity.this, NavActivity1.class);
+                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(),
+                        "안녕하세요 " + struser + " 님",
+                        Toast.LENGTH_LONG).show();
+                finish();
+
 
             } else { //아싸리 로그인 안되어있음
                 // Send user to LoginSignupActivity.class

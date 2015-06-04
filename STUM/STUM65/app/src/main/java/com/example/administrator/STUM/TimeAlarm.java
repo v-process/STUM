@@ -19,6 +19,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class TimeAlarm extends BroadcastReceiver {
     int total;
     int i = 0;
     int time;
-
+    ArrayList<Integer> arrayAverage = new ArrayList<Integer>();
 
 
     @SuppressWarnings("deprecation")
@@ -48,17 +49,22 @@ public class TimeAlarm extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         this.mContext = context;
         time = timecheck();
-
+        averageflag = 0;
         hour = now.get(Calendar.HOUR_OF_DAY);
         date = now.get(Calendar.DATE);
 
         ParseUser user = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("DrunkTable");
-        //query.whereEqualTo("User", user);
-        query.whereEqualTo("day", date-1);
+        query.whereEqualTo("User", user);
+        time = timecheck();
+        int hour_1= hour - time;
+        query.whereEqualTo("day", 3);
+        query.addDescendingOrder("createdAt");
+        query.whereEqualTo("hour", 4);
 
-        query.whereGreaterThan("hour", hour);//최대 현재 시간 까지
-        //query.whereLessThan("hour",hour-3);//최소 현재시간-1 까지
+        //query.whereLessThanOrEqualTo("hour", 4);//최대 현재 시간 까지
+        //query.whereGreaterThanOrEqualTo("hour", hour-1);//최소 현재시간-1 까지
+        query.setLimit(3);
 
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> object, ParseException e) {
@@ -68,28 +74,30 @@ public class TimeAlarm extends BroadcastReceiver {
 //                    userAnalysis.saveInBackground();
 
                 } else {
-
                     for (int i = 0; i < object.size(); i++) {
                         ParseObject course = object.get(i);
-//
-//                        Number date = course.getNumber("day");
-//                        Number vol = course.getNumber("drunk");
-//
-//                        arrayDate.add(String.valueOf(date)+ "일");
-//                        arrayDrink.add(new Entry(vol.floatValue(), i));
+
                         total = (int) course.get("drunk");
-                        total += total;
+                        sum(total);
+                        flagfunc();
 
                     }
-
+                    int averageresult = sum(total);
 
                     time = timecheck();
+
+                    //int divide = flagfunc();
+                    int divide =  object.size();
+
 //                    total = (int) object.get("drunk");
 //                    total += total;
                     ParseUser user = ParseUser.getCurrentUser();
                     Compare();
+                    time = timecheck();
+                    int hour_1= hour - time;
+
                     userAnalysis.put("User", user);
-                    userAnalysis.put("averagedrunk", total);
+                    userAnalysis.put("averagedrunk", averageresult);
                     userAnalysis.saveInBackground();
                     Compare2();
                 }
@@ -180,7 +188,8 @@ public class TimeAlarm extends BroadcastReceiver {
                         //int k =  compare2(averagedrinkcheck, currentdrinkcheck);
 
                         if (todaywater1 <= averagewater) {
-                            noti(todaywater1, averagewater);
+
+                            noti(todaywater1, averagewater/(3));
                         }
                     }
 
@@ -248,7 +257,13 @@ public class TimeAlarm extends BroadcastReceiver {
     }
 
     public int timecheck(){
-        if(hour <= 7){
+        if(hour <= 3) {
+            i = 3;
+        }
+        else if(hour <= 5){
+            i = 5;
+        }
+        else if(hour <= 7){
             i = 7;
         }
         else if(hour <= 11){
@@ -257,7 +272,24 @@ public class TimeAlarm extends BroadcastReceiver {
         else if(hour <= 21){
             i = 5;
         }
+        else if(hour <= 23){
+            i = 2;
+        }
+        else{
+            i = 2;
+        }
         return i;
+    }
+    int averagesum;
+    int averageflag = 0;
+    public int sum(int total){
+        averageflag++;
+        averagesum += total;
+        return averagesum;
+    }
+
+    public int flagfunc(){
+        return averageflag;
     }
 
 

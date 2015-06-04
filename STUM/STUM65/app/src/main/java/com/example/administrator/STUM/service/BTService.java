@@ -25,9 +25,11 @@ import com.example.administrator.STUM.bluetooth.TransactionReceiver;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 
-public class BTService  extends Service {
+public class BTService extends Service {
     private static final String TAG = "BTService";
 
     // Context, System
@@ -66,6 +68,8 @@ public class BTService  extends Service {
 
         mContext = getApplicationContext();
         initialize();//아래에있지..
+
+
     }
 
     @Override
@@ -299,8 +303,15 @@ public class BTService  extends Service {
      */
     class ServiceHandler extends Handler
     {
+
+
         @Override
         public void handleMessage(Message msg) {
+
+            long now = System.currentTimeMillis();
+            Date date = new Date(now);
+            SimpleDateFormat sdfnow = new SimpleDateFormat("yyyyMMddHHmmss");
+            String strM = sdfnow.format(date);
 
             switch(msg.what) {
                 case BluetoothManager.MESSAGE_STATE_CHANGE: //블투매니저객체에서 메세지상태변환일경우
@@ -378,7 +389,7 @@ public class BTService  extends Service {
                     int hour=Integer.parseInt(str[4]);
                     int min=Integer.parseInt(str[5]);
                     int sec=Integer.parseInt(str[6]);
-                    int watercm=Integer.parseInt(str[7]);//지금은 인체와의 거리가 전송되고있음
+                    float watercm=Float.parseFloat(str[7]);//지금은 인체와의 거리가 전송되고있음
                     double watertemp=Double.parseDouble(str[8]);
                     Log.d("tag0",str[0]);
                     Log.d("tag1",str[1]);
@@ -390,12 +401,19 @@ public class BTService  extends Service {
                     Log.d("tag7",str[7]);
                     Log.d("tag8",str[8]);
 
-                    int watervolume=(int)( PI*8*8*(watercm/10));
+                    int watervolume=(int)( PI*8*8*(watercm/100));
 
+
+                    ParseObject charCheck = new ParseObject("Character");
+                    charCheck.put("drinkflag", drinkflag);
+                    charCheck.put("characterStatusCheck", strM);
+                    charCheck.put("temp", watertemp);
+                    charCheck.saveInBackground();
 
 
                     if(drinkflag.equals("D")) {
                         ParseObject testDBdata = new ParseObject("dataTestMH");
+
                         testDBdata.put("User", user);
                         testDBdata.put("drinkflag", drinkflag);
                         testDBdata.put("year", year);
@@ -408,6 +426,7 @@ public class BTService  extends Service {
                         testDBdata.put("watertemp", watertemp);
                         testDBdata.saveInBackground();
                         transFlag=true;
+
                     }else if(transFlag==true && drinkflag.equals("N")){
                         ParseObject testDBdata = new ParseObject("dataTestMH");
                         testDBdata.put("User", user);
@@ -442,7 +461,6 @@ public class BTService  extends Service {
 
 
                     //////////////////////////////////////////////////////////여기가 중요한듯 싶다 //데이터전송과받기끝
-
 
                 case BluetoothManager.MESSAGE_DEVICE_NAME:        //블투매니저객체에서 디바이스이름...
                     Log.d(TAG, "Service - MESSAGE_DEVICE_NAME: ");
